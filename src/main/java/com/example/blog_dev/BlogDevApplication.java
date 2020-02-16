@@ -1,13 +1,13 @@
-package edu.hfuu.myblog_dev;
+package com.example.blog_dev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyblogDevApplication {
+public class BlogDevApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyblogDevApplication.class, args);
+        SpringApplication.run(BlogDevApplication.class, args);
     }
 
 }

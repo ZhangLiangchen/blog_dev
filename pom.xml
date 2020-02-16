@@ -8,7 +8,7 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>edu.hfuu</groupId>
+    <groupId>com.example</groupId>
     <artifactId>blog_dev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>blog_dev</name>
@@ -29,6 +29,7 @@
             <artifactId>p6spy</artifactId>
             <version>3.8.7</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
