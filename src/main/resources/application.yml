@@ -1,13 +1,12 @@
+# 数据源
 spring:
   datasource:
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6psy:mysql://rm-bp162pgo0uzr9u0hcmo.mysql.rds.aliyuncs.com:3306/myblog?serverTimezone=Asia/Shanghai
-    username: zlc01
-    password: ZLC@@@111
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp162pgo0uzr9u0hcmo.mysql.rds.aliyuncs.com:3306/blog_dev?serverTimezone=Asia/Shanghai
+    username: xh01
+    password: XH@@@1111
 
-  thymeleaf:
-    mode: HTML
-    cache: false
-    encoding: UTF-8
-    suffix: .html
-    prefix: classpath:/templates/
+# 日志
+
+
+
