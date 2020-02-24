@@ -93,6 +93,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--java文件热部署-->
+<!--                <configuration>-->
+<!--                    <fork>true</fork>-->
+<!--                </configuration>-->
             </plugin>
         </plugins>
     </build>
