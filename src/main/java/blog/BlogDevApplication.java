@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * 主配置类，项目启动入口
- * @author 浅忆
  */
 @SpringBootApplication
 public class BlogDevApplication {
