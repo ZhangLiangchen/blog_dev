@@ -1,8 +1,8 @@
-package blog.po;
+package blog.entity;
 
 /**
  * @author Ciel-08
  * @date 2020/2/24 16:00
  */
-public class TestPo {
+public class TestEntity {
 }
