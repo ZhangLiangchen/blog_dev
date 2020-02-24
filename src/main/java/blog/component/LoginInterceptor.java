@@ -1,4 +1,4 @@
-package blog.componment;
+package blog.component;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 登录拦截器。在组件包可以配置相关组件
+ * 在component包可以配置相关组件，如此处的登录拦截器组件
  * @author Ciel-08
  * @date 2020/2/24 15:01
  */
