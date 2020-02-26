@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员公共部分</title>
+</head>
+<body>
+<!--导航栏-->
+<div class="layui-layout layui-layout-admin" th:fragment="nav">
+    <div class="layui-header">
+        <div class="layui-logo" style="font-size: x-large;font-weight: bold;padding-left: 20px">
+            MyBlog <span class="layui-badge-dot"/>
+        </div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item">
+                <a href="/admin/blogs">
+                    <i class="layui-icon layui-icon-home"></i> 博客
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">
+                    <i class="layui-icon layui-icon-app"></i> 分类
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">
+                    <i class="layui-icon layui-icon-note"></i> 标签
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">
+                    <i class="layui-icon layui-icon-user"></i> 访客
+                </a>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="https://unsplash.it/100/100?image=1005" class="layui-nav-img"> 用户名
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--尾巴-->
+<footer class="layui-footer" th:fragment="footer">
+    <hr/>
+    <p class="layui-text" style="text-align: center">
+        Copyright &copy; 2020. MyBlog All rights reserved.<br/>Designed by Layui
+    </p>
+</footer>
+</body>
+</html>
