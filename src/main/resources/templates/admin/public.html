@@ -27,14 +27,14 @@
                     <i class="layui-icon layui-icon-note"></i> 标签
                 </a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item layui-hide-xs">
                 <a href="">
                     <i class="layui-icon layui-icon-user"></i> 访客
                 </a>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
+            <li class="layui-nav-item layui-hide-xs">
                 <a href="javascript:;">
                     <img src="https://unsplash.it/100/100?image=1005" class="layui-nav-img"> 用户名
                 </a>
@@ -47,9 +47,11 @@
 </div>
 <!--尾巴-->
 <footer class="layui-footer" th:fragment="footer">
-    <hr/>
-    <p class="layui-text" style="text-align: center">
-        Copyright &copy; 2020. MyBlog All rights reserved.<br/>Designed by Layui
+    <hr style="margin-top: 100px"/>
+    <p class="layui-text" style="text-align: center; margin: 20px 0px">
+        Copyright &copy; 2020. <a style="text-decoration: none;color: #555;" href="/">MyBlog</a> All rights reserved.
+        <br>Powered by <a style="color: #555;" href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a>
+        <a style="color: #555;" href="https://www.layui.com/" target="_blank"> | Layui</a>
     </p>
 </footer>
 </body>
