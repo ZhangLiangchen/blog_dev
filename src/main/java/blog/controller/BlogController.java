@@ -2,6 +2,7 @@ package blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,6 +15,7 @@ public class BlogController {
 
     @GetMapping("/blogs")
     public String listBlog() {
+
         return "admin/blogs";
     }
 
@@ -21,6 +23,17 @@ public class BlogController {
     public String createBlog() {
 
         return "admin/blog-input";
+    }
+
+    @GetMapping("/blog/input/selectTags")
+    public String selectTags() {
+        return "admin/tags-select";
+    }
+
+    @PostMapping("/blogs")
+    public String saveBlog() {
+
+        return "redirect:blogs";
     }
 
 }
