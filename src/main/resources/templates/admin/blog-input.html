@@ -5,7 +5,7 @@
     <title>写博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="/md/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/lib/editormd/css/editormd.min.css"/>
 </head>
 <body bgcolor="#f5f5f5">
 <!--导航栏-->
@@ -44,7 +44,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="layui-col-md4 layui-col-xs6">
+                <div class="layui-col-md3 layui-col-xs6">
                     <!--标签-->
                     <label class="layui-form-label">标签</label>
                     <div class="layui-input-block">
@@ -52,7 +52,7 @@
                                placeholder="点击选择标签" onclick="tagsSelector();" autocomplete="off">
                     </div>
                 </div>
-                <div class="layui-col-md5 layui-col-xs12">
+                <div class="layui-col-md6 layui-col-xs12">
                     <!--首图-->
                     <label class="layui-form-label">首图</label>
                     <div class="layui-input-block">
@@ -115,7 +115,7 @@
     }
 </script>
 <!--markdown编辑器-->
-<script src="/md/editormd.min.js"></script>
+<script src="/lib/editormd/editormd.min.js"></script>
 <script type="text/javascript">
     /*初始化markdown编辑器*/
     var mdEditor;
@@ -124,7 +124,7 @@
             width: "100%",
             height: 640,
             syncScrolling: "single",
-            path: "/md/lib/"
+            path: "/lib/editormd/lib/"
         });
     });
 </script>

@@ -1,6 +1,7 @@
 package blog.dao;
 
 import blog.entity.TType;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-02-29 20:41:34
  */
+@Mapper
 public interface TTypeDao {
 
     /**

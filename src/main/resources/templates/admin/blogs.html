@@ -37,7 +37,7 @@
     </form>
 
     <!--博客列表-->
-    <table id="blogsTable" lay-filter="blogsTable"></table>
+    <table  class="layui-hide" id="blogsTable" lay-filter="blogsTable"></table>
 
 </div>
 
@@ -54,10 +54,6 @@
     //表单模块
     layui.use('form', function(){
         const form = layui.form;
-        //监听提交
-        form.on('submit(searchBlogForm)', function(data){
-
-        });
     });
     //年月选择器
     layui.use('laydate', function(){
@@ -67,10 +63,19 @@
             ,type: 'month'
         });
     });
-    //表格模块
+    //数据表格
     layui.use('table', function(){
         const table = layui.table;
-
+        table.render({
+            elem: '#blogsTable',
+            url: '/admin/blogs/list',
+            page: true,
+            cols: [[
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'},
+                {field: 'title', title: '标题', width:80, sort: true, fixed: 'left'},
+                {field: 'content', title: '内容', width:80, sort: true, fixed: 'left'}
+            ] ],
+        });
     });
 </script>
 </body>
