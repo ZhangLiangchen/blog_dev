@@ -1,188 +1,238 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
-<!--加载meta IE兼容文件-->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>首页</title>
+  <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+  <link href="../static/css/me.css" rel="stylesheet">
 </head>
 <body>
-  <div class="header">
-    <div class="menu-btn">
-      <div class="menu"></div>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragments :: menu(1)">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui purple header item">E.T.Blog</h2>
+      <a class="m-item item m-mobile-hide" href="#"><i class="mini home icon"></i>首页</a>
+      <a class="m-item item m-mobile-hide" href="#"><i class="mini idea icon"></i>分类</a>
+      <a class="m-item item m-mobile-hide" href="#"><i class="mini tags icon"></i>标签</a>
+      <a class="m-item item m-mobile-hide" href="#"><i class="mini clone icon"></i>归档</a>
+      <a class="m-item item m-mobile-hide" href="#"><i class="mini info icon"></i>关于我</a>
+      <div class="right m-item item m-mobile-hide">
+        <div class="ui icon inverted  input m-margin-tb-tiny">
+          <input placeholder="Search...." type="text">
+          <i class="search link icon"></i>
+        </div>
+      </div>
     </div>
-    <h1 class="logo">
-      <a href="index.html">
-        <span>MYBLOG</span>
-        <img src="/img/logo.png">
-      </a>
-    </h1>
-    <div class="nav">
-      <a href="index.html" class="active">文章</a>
-      <a href="whisper.html">微语</a>
-      <a href="leacots.html">留言</a>
-      <a href="album.html">相册</a>
-      <a href="about.html">关于</a>
+  </div>
+  <a class="ui menu toggle black icon button m-right-top m-mobile-show" href="#">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<!--中间内容-->
+<div class="m-container m-padded-tb-big">
+  <div class="ui container">
+    <div class="ui stackable grid">
+      <!--左边博客列表-->
+      <div class="eleven wide column">
+
+
+        <!--header-->
+        <div class="ui top attached segment">
+          <div class="ui middle aligned two column grid">
+            <div class="column">
+              <h3 class="ui purple header">博客</h3>
+            </div>
+            <div class="right aligned column">
+              共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${pageInfo.total}"> 14 </h2> 篇
+            </div>
+          </div>
+        </div>
+
+        <!--content-->
+        <div class="ui attached  segment">
+
+          <div class="ui padded vertical segment m-padded-tb-large" th:each="blog:${pageInfo.list}">
+            <div class="ui mobile reversed stackable grid">
+              <div class="eleven wide column">
+                <h3 class="ui header"><a class="m-black" href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}"
+                                         th:text="${blog.title}">你真的理解什么是财富自由吗?</a></h3>
+                <p class="m-text" th:text="|${blog.description}......|">
+                  正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
+                <div class="ui grid">
+                  <div class="eleven wide column">
+                    <div class="ui mini horizontal link list">
+                      <div class="item">
+                        <img alt="" class="ui avatar image" src="https://unsplash.it/100/100?image=1005"
+                             th:src="@{${blog.avatar}}">
+                        <div class="content"><a class="header" href="#" th:text="${blog.nickname}">李仁密</a></div>
+                      </div>
+                      <div class="item">
+                        <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
+                      </div>
+                      <div class="item">
+                        <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="right aligned five wide column">
+                    <a class="ui purple basic label m-padded-tiny m-text-thin" href="#" target="_blank"
+                       th:text="${blog.typeName}">认知升级</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="five wide column">
+                <a href="#" target="_blank">
+                  <img alt="" class="ui rounded image" src="https://unsplash.it/800/450?image=1005"
+                       th:src="@{${blog.firstPicture}}">
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <!--footer-->
+        <div class="ui bottom attached segment">
+          <div class="ui middle aligned two column grid">
+            <div class="column">
+              <div class="item"><a class="ui mini purple basic button"
+                                   th:href="@{/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+              </div>
+            </div>
+            <div class="right aligned column">
+              <div class="item"><a class="ui mini purple basic button"
+                                   th:href="@{/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--右边的top-->
+      <div class="five wide column">
+
+        <!--分类-->
+        <div class="ui segments">
+          <div class="ui secondary segment">
+            <div class="ui two column grid">
+              <div class="column">
+                <i class="idea icon"></i>分类
+              </div>
+              <div class="right aligned column">
+                <a href="#" target="_blank" th:href="@{/types/-1}">more <i class="angle double right icon"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="ui purple segment">
+            <div class="ui fluid vertical menu">
+              <a class="item" href="#" target="_blank" th:each="type:${types}" th:href="@{/types/{id}(id=${type.id})}">
+                <span th:text="${type.name}">学习日志</span>
+                <div class="ui purple basic left pointing label" th:text="${type.blogs.size()}">13</div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!--标签-->
+        <div class="ui segments m-margin-top-large">
+          <div class="ui secondary segment">
+            <div class="ui two column grid">
+              <div class="column">
+                <i class="tags icon"></i>标签
+              </div>
+              <div class="right aligned column">
+                <a href="#" target="_blank" th:href="@{/tags/-1}">more <i class="angle double right icon"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="ui purple segment">
+            <a class="ui purple basic left pointing label m-margin-tb-tiny" href="#" target="_blank"
+               th:each="tag : ${tags}" th:href="@{/tags/{id}(id=${tag.id})}">
+              <span th:text="${tag.name}">方法论</span>
+              <div class="detail" th:text="${tag.blogs.size()}">23</div>
+            </a>
+          </div>
+        </div>
+
+        <!--最新推荐-->
+        <div class="ui segments m-margin-top-large">
+          <div class="ui secondary segment ">
+            <i class="bookmark icon"></i>最新推荐
+          </div>
+          <div class="ui segment" th:each="blog : ${recommendedBlogs}">
+            <a class="m-black m-text-thin" href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}"
+               th:text="${blog.title}">用户故事（User Story）</a>
+          </div>
+        </div>
+
+        <!--二维码-->
+        <h4 class="ui horizontal divider header m-margin-top-large">扫码添加我</h4>
+        <div class="ui centered card" style="width: 11em">
+          <img alt="" class="ui rounded image" th:src="@{/image/微信名片.png}">
+        </div>
+      </div>
+
     </div>
-    <ul class="layui-nav header-down-nav">
-      <li class="layui-nav-item"><a href="index.html" class="active">文章</a></li>
-      <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-      <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-      <li class="layui-nav-item"><a href="album.html">相册</a></li>
-      <li class="layui-nav-item"><a href="about.html">关于</a></li>
-    </ul>
-    <p class="welcome-text">
-      欢迎来到<span class="name">小明</span>的博客~
-    </p>
   </div>
 
-  <div class="banner">
-    <div class="cont w1000">
-      <div class="title">
-        <h3>MY<br />BLOG</h3>
-        <h4>well-balanced heart</h4>
+</div>
+
+<br>
+<br>
+<!--底部footer-->
+<footer class="ui inverted vertical segment m-padded-tb-massive" th:replace="_fragments :: footer">
+  <div class="ui center aligned container">
+    <div class="ui inverted divided stackable grid">
+      <div class="three wide column">
+        <div class="ui inverted link list">
+          <div class="item">
+            <img alt="" class="ui rounded image" style="width: 110px" th:src="@{/image/微信名片.png}">
+          </div>
+        </div>
       </div>
-      <div class="amount">
-        <p><span class="text">访问量</span><span class="access">1000</span></p>
-        <p><span class="text">日志</span><span class="daily-record">1000</span></p>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+        <div class="ui inverted link list">
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+        <div class="ui inverted link list">
+          <a class="item m-text-thin" href="#">QQ：1437810640</a>
+        </div>
+      </div>
+      <div class="seven wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
       </div>
     </div>
-  </div>
-  <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>
-  <div class="content">
-    <div class="cont w1000">
-      <div class="title">
-        <span class="layui-breadcrumb" lay-separator="|">
-          <a href="javascript:;" class="active">设计文章</a>
-          <a href="javascript:;">前端文章</a>
-          <a href="javascript:;">旅游杂记</a>
-        </span>
-      </div>
-      <div class="list-item">
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/img/sy_img1.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/img/sy_img2.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/img/sy_img3.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/img/sy_img4.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-        <div class="item">
-          <div class="layui-fluid">
-            <div class="layui-row">
-              <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                <div class="img"><img src="/img/sy_img5.jpg" alt=""></div>
-              </div>
-              <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                <div class="item-cont">
-                  <h3>空间立体效果图，完美呈现最终效果<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                  <h5>设计文章</h5>
-                  <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                  <a href="details.html" class="go-icon"></a>
-                </div>
-            </div>
-            </div>
-           </div>
-        </div>
-      </div>
-      <div id="demo" style="text-align: center;"></div>
-    </div>
+    <div class="ui inverted section divider"></div>
+    <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 </p>
   </div>
 
-  <div class="footer-wrap">
-    <div class="footer w1000">
-      <div class="qrcode">
-        <img src="/img/erweima.jpg">
-      </div>
-      <div class="practice-mode">
-        <img src="/img/down_img.jpg">
-        <div class="text">
-          <h4 class="title">我的联系方式</h4>
-          <p>微信<span class="WeChat">1234567890</span></p>
-          <p>邮箱<span class="email">1234567890@qq.com</span></p>
-          <p>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript" src="/layui/layui.js"></script>
-  <script type="text/javascript">
-    layui.config({
-      base: '/js/util/'
-    }).use(['element','laypage','jquery','menu'],function(){
-      element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
-      laypage.render({
-        elem: 'demo'
-        ,count: 70 //数据总数，从服务端得到
-      });
-      menu.init();
-    })
-  </script>
+</footer>
+
+<th:block th:replace="_fragments :: script">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.js"></script>
+
+</th:block>
+
+<script>
+  $('.menu.toggle').click(function () {
+    $('.m-item').toggleClass('m-mobile-hide');
+  });
+</script>
 </body>
 </html>
