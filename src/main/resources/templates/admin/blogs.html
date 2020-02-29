@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理我的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+</head>
+<body>
+<!--导航栏-->
+<div th:replace="~{/admin/public :: nav}"></div>
+
+<!--博客管理-->
+<div class="layui-container">
+
+    <!--查找工具条-->
+    <form class="layui-form" style="margin-top: 60px">
+        <div class="layui-form-item">
+            <div class="layui-input-inline" style="padding-bottom: 10px">
+                <input type="text" name="title" placeholder="标题" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline" style="padding-bottom: 10px">
+                <select name="type">
+                    <option value="">分类</option>
+                    <!--待填充-->
+                </select>
+            </div>
+            <div class="layui-input-inline layui-hide-xs">
+                <input type="text" name="date" id="dateSelector" placeholder="年月" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <button type="reset" class="layui-btn layui-bg-gray">清空</button>
+                <button class="layui-btn" lay-submit lay-filter="searchBlogForm"><i class="layui-icon layui-icon-search"></i></button>
+            </div>
+            <a class="layui-btn layui-btn-danger" href="/admin/blog/input">发布新博客</a>
+        </div>
+    </form>
+
+    <!--博客列表-->
+    <table id="blogsTable" lay-filter="blogsTable"></table>
+
+</div>
+
+<!--尾巴-->
+<footer th:insert="~{/admin/public :: footer}"></footer>
+
+<!--script-->
+<script src="/layui/layui.js"></script>
+<script>
+    //layui导航依赖element模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        const element = layui.element;
+    });
+    //表单模块
+    layui.use('form', function(){
+        const form = layui.form;
+        //监听提交
+        form.on('submit(searchBlogForm)', function(data){
+
+        });
+    });
+    //年月选择器
+    layui.use('laydate', function(){
+        const laydate = layui.laydate;
+        laydate.render({
+            elem: '#dateSelector'
+            ,type: 'month'
+        });
+    });
+    //表格模块
+    layui.use('table', function(){
+        const table = layui.table;
+
+    });
+</script>
+</body>
+</html>
