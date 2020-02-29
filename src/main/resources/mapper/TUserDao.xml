@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog.dao.TUserDao">
+
+    <resultMap type="blog.entity.TUser" id="TUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TUserMap">
+        select id,
+               nickname,
+               username,
+               password,
+               email,
+               avatar,
+               type,
+               create_time,
+               update_time
+        from blog_dev.t_user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TUserMap">
+        select id,
+               nickname,
+               username,
+               password,
+               email,
+               avatar,
+               type,
+               create_time,
+               update_time
+        from blog_dev.t_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TUserMap">
+        select
+        id, nickname, username, password, email, avatar, type, create_time, update_time
+        from blog_dev.t_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into blog_dev.t_user(nickname, username, password, email, avatar, type, create_time, update_time)
+        values (#{nickname}, #{username}, #{password}, #{email}, #{avatar}, #{type}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update blog_dev.t_user
+        <set>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from blog_dev.t_user
+        where id = #{id}
+    </delete>
+
+</mapper>
