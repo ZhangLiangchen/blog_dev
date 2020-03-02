@@ -42,4 +42,12 @@ public class TBlogTags implements Serializable {
         this.blogId = blogId;
     }
 
+    @Override
+    public String toString() {
+        return "TBlogTags{" +
+                "id=" + id +
+                ", tagId=" + tagId +
+                ", blogId='" + blogId + '\'' +
+                '}';
+    }
 }

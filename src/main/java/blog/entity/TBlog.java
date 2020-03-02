@@ -183,4 +183,26 @@ public class TBlog implements Serializable {
         this.tagIds = tagIds;
     }
 
+    @Override
+    public String toString() {
+        return "TBlog{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", firstPicture='" + firstPicture + '\'' +
+                ", flag='" + flag + '\'' +
+                ", views=" + views +
+                ", appreciation=" + appreciation +
+                ", shareStatement=" + shareStatement +
+                ", commentabled=" + commentabled +
+                ", published=" + published +
+                ", recommend=" + recommend +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", typeId=" + typeId +
+                ", userId=" + userId +
+                ", description='" + description + '\'' +
+                ", tagIds='" + tagIds + '\'' +
+                '}';
+    }
 }

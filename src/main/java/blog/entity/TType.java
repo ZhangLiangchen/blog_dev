@@ -32,4 +32,11 @@ public class TType implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "TType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

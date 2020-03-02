@@ -103,4 +103,18 @@ public class TUser implements Serializable {
         this.updateTime = updateTime;
     }
 
+    @Override
+    public String toString() {
+        return "TUser{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", type=" + type +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

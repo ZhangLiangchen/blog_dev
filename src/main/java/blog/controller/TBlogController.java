@@ -1,11 +1,14 @@
 package blog.controller;
 
+import blog.entity.TBlog;
 import blog.service.TBlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,8 +52,8 @@ public class TBlogController {
     }
 
     @PostMapping("/blogs")
-    public String saveBlog() {
-
+    public String saveBlog(TBlog blog, RedirectAttributes attributes, HttpSession session) {
+        System.out.println(blog);
         return "redirect:blogs";
     }
 

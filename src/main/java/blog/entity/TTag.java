@@ -32,4 +32,11 @@ public class TTag implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "TTag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

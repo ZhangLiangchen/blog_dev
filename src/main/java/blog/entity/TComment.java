@@ -93,4 +93,17 @@ public class TComment implements Serializable {
         this.parentCommentId = parentCommentId;
     }
 
+    @Override
+    public String toString() {
+        return "TComment{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", createTime=" + createTime +
+                ", blogId=" + blogId +
+                ", parentCommentId=" + parentCommentId +
+                '}';
+    }
 }

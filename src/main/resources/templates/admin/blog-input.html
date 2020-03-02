@@ -18,7 +18,7 @@
         <legend><i class="layui-icon layui-icon-release"></i> 写博客</legend>
     </fieldset>
 
-    <form class="layui-form layui-form-pane" action="/admin/blogs" method="post">
+    <form class="layui-form layui-form-pane" id="blog-form" action="/admin/blogs" method="post">
         <!--标题-->
         <div class="layui-form-item layui-form-pane">
             <label class="layui-form-label">标题</label>
@@ -56,7 +56,7 @@
                     <!--首图-->
                     <label class="layui-form-label">首图</label>
                     <div class="layui-input-block">
-                        <input type="text" name="firstPic" placeholder="首图引用地址" autocomplete="off" class="layui-input">
+                        <input type="text" name="firstPicture" placeholder="首图引用地址" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -65,11 +65,13 @@
         <div class="layui-form-item layui-form-pane">
             <textarea name="description" placeholder="简要描述一下这篇博文吧..." autocomplete="off" class="layui-textarea"></textarea>
         </div>
+        <!--是否发布-->
+        <input type="hidden" name="published">
         <!--按钮组-->
         <div class="layui-form-item" style="margin-top: 10px;float: right;">
             <button type="button" class="layui-btn layui-btn-primary" onclick="window.history.go(-1)">返回</button>
-            <button type="submit" class="layui-btn">保存为草稿</button>
-            <button type="submit" class="layui-btn layui-btn-danger">发布</button>
+            <button type="submit" class="layui-btn" lay-submit id="saveBtn">保存为草稿</button>
+            <button type="submit" class="layui-btn layui-btn-danger" lay-submit id="pubBtn">发布</button>
         </div>
     </form>
 </div>
@@ -81,6 +83,17 @@
 <script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
 <!--layui-->
 <script src="/layui/layui.js"></script>
+<script>
+    /*点击保存或发布按钮后，动态修改字段值，1表示发布*/
+    $('#saveBtn').click(function () {
+        $('[name="published"]').val(0);
+
+    });
+    $('#pubBtn').click(function () {
+        $('[name="published"]').val(1);
+
+    });
+</script>
 <script>
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
