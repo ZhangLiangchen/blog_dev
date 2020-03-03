@@ -1,20 +1,18 @@
-package blog.dao;
+package blog.mapper;
 
-import blog.entity.TUser;
-import org.apache.ibatis.annotations.Mapper;
+import blog.entity.TBlogTags;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (TUser)表数据库访问层
+ * (TBlogTags)表数据库访问层
  *
  * @author makejava
- * @since 2020-02-29 20:41:34
+ * @since 2020-02-29 20:41:31
  */
 
-@Mapper
-public interface TUserDao {
+public interface TBlogTagsDao {
 
     /**
      * 通过ID查询单条数据
@@ -22,7 +20,7 @@ public interface TUserDao {
      * @param id 主键
      * @return 实例对象
      */
-    TUser queryById(Long id);
+    TBlogTags queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -31,32 +29,32 @@ public interface TUserDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<TUser> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<TBlogTags> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param tUser 实例对象
+     * @param tBlogTags 实例对象
      * @return 对象列表
      */
-    List<TUser> queryAll(TUser tUser);
+    List<TBlogTags> queryAll(TBlogTags tBlogTags);
 
     /**
      * 新增数据
      *
-     * @param tUser 实例对象
+     * @param tBlogTags 实例对象
      * @return 影响行数
      */
-    int insert(TUser tUser);
+    int insert(TBlogTags tBlogTags);
 
     /**
      * 修改数据
      *
-     * @param tUser 实例对象
+     * @param tBlogTags 实例对象
      * @return 影响行数
      */
-    int update(TUser tUser);
+    int update(TBlogTags tBlogTags);
 
     /**
      * 通过主键删除数据
@@ -64,6 +62,6 @@ public interface TUserDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
 }

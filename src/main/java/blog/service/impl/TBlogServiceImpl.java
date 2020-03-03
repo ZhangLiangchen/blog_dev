@@ -1,7 +1,7 @@
 package blog.service.impl;
 
 import blog.entity.TBlog;
-import blog.dao.TBlogDao;
+import blog.mapper.TBlogDao;
 import blog.service.TBlogService;
 import org.springframework.stereotype.Service;
 

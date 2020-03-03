@@ -1,7 +1,6 @@
-package blog.dao;
+package blog.mapper;
 
 import blog.entity.TTag;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
  * @since 2020-02-29 20:41:34
  */
 
-@Mapper
 public interface TTagDao {
 
     /**

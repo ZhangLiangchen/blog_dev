@@ -1,7 +1,7 @@
 package blog.service.impl;
 
 import blog.entity.TUser;
-import blog.dao.TUserDao;
+import blog.mapper.TUserDao;
 import blog.service.TUserService;
 import org.springframework.stereotype.Service;
 

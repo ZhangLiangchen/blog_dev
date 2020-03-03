@@ -1,20 +1,18 @@
-package blog.dao;
+package blog.mapper;
 
-import blog.entity.TType;
-import org.apache.ibatis.annotations.Mapper;
+import blog.entity.TComment;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * (TType)表数据库访问层
+ * (TComment)表数据库访问层
  *
  * @author makejava
  * @since 2020-02-29 20:41:34
  */
 
-@Mapper
-public interface TTypeDao {
+public interface TCommentDao {
 
     /**
      * 通过ID查询单条数据
@@ -22,7 +20,7 @@ public interface TTypeDao {
      * @param id 主键
      * @return 实例对象
      */
-    TType queryById(Long id);
+    TComment queryById(Long id);
 
     /**
      * 查询指定行数据
@@ -31,32 +29,32 @@ public interface TTypeDao {
      * @param limit  查询条数
      * @return 对象列表
      */
-    List<TType> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<TComment> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param tType 实例对象
+     * @param tComment 实例对象
      * @return 对象列表
      */
-    List<TType> queryAll(TType tType);
+    List<TComment> queryAll(TComment tComment);
 
     /**
      * 新增数据
      *
-     * @param tType 实例对象
+     * @param tComment 实例对象
      * @return 影响行数
      */
-    int insert(TType tType);
+    int insert(TComment tComment);
 
     /**
      * 修改数据
      *
-     * @param tType 实例对象
+     * @param tComment 实例对象
      * @return 影响行数
      */
-    int update(TType tType);
+    int update(TComment tComment);
 
     /**
      * 通过主键删除数据

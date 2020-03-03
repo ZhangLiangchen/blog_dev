@@ -1,7 +1,7 @@
 package blog.service.impl;
 
 import blog.entity.TComment;
-import blog.dao.TCommentDao;
+import blog.mapper.TCommentDao;
 import blog.service.TCommentService;
 import org.springframework.stereotype.Service;
 
