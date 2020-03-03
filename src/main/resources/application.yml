@@ -1,9 +1,7 @@
 # 数据源
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-bp162pgo0uzr9u0hcmo.mysql.rds.aliyuncs.com:3306/blog_dev?serverTimezone=Asia/Shanghai
-    username: xh01
-    password: XH@@@1111
-
-# 日志
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://rm-bp162pgo0uzr9u0hcmo.mysql.rds.aliyuncs.com:3306/blog_dev?serverTimezone=Asia/Shanghai
+    username: zlc01
+    password: zlc@@@111
