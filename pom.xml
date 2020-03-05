@@ -35,6 +35,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!--分页插件-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.pagehelper</groupId>-->
+        <!--            <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+        <!--            <version>1.2.13</version>-->
+        <!--        </dependency>-->
         <!--webjars引入jquery-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
@@ -76,7 +82,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.13</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mybatis</groupId>
