@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class TComment {
     private Long id;
     private String nickname;
     private String email;
@@ -27,8 +27,8 @@ public class Comment {
     private String parentNickname;
 
     //回复评论
-    private List<Comment> replyComments = new ArrayList<>();
-    private Comment parentComment;
+    private List<TComment> replyTComments = new ArrayList<>();
+    private TComment parentTComment;
 
     private DetailedBlog blog;
 

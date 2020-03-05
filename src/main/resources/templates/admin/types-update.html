@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <script src="/layui/layui.js"></script>
+    <!--jquery-->
+    <script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+</head>
+<body>
+
+<form class="layui-form" id="setLimitForm">
+    <div class="layui-form-item">
+
+    <label class="layui-form-label">分类的id</label>
+    <div class="layui-input-inline">
+        <input type="text" name="id"  required lay-verify="required"  th:value="${id}"   placeholder=" " autocomplete="off" class="layui-input">
+    </div>
+
+</div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" required lay-verify="required" placeholder="请输入新的分类名称 " autocomplete="off" class="layui-input">
+        </div>
+
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="setLimitButton">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+    //监听提交
+</script>
+<script>
+    $(function() {
+        $("#setLimitButton").click(
+            function(){
+                $.ajax({
+                    type: "GET",
+                    dataType: "text",
+                    url: "/admin/typeUpdate" ,
+                    data: $('#setLimitForm').serialize(),
+                    success: function (message) {
+                        if (message == "success") {
+                            parent.layer.msg("修改成功!",{icon:1,time:700},function(){
+                                //重新加载当前页面
+                                parent.location.reload();
+                            });
+                        }
+                        else {
+                            alert("未知异常！");
+                        }
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+                });
+            }
+        );
+    });
+</script>
+</body>
+</html>

@@ -1,7 +1,13 @@
 package blog.service;
 
-import blog.entity.Type;
+import blog.entity.TType;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-public interface TypeService extends IService<Type> {
+import java.util.List;
+
+public interface TypeService extends IService<TType> {
+
+    List<TType> queryBlogById(Long id);
+
+    void deleteById(Long id);
 }

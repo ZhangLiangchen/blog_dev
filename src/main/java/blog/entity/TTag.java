@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+public class TTag {
     private Long id;
     private String name;
 
-    private List<Blog> blogs = new ArrayList<>();
+    private List<TBlog> blogs = new ArrayList<>();
 }

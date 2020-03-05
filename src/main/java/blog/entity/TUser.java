@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class TUser {
     private Long id;
     private String nickname;
     private String username;
@@ -22,5 +22,5 @@ public class User {
     private Date createTime;
     private Date updateTime;
 
-    private List<Blog> blogs = new ArrayList<>();
+    private List<TBlog> blogs = new ArrayList<>();
 }

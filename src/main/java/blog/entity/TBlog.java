@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Blog {
+public class TBlog {
 
 
     private Long id;
@@ -35,11 +35,20 @@ public class Blog {
     private String tagIds;
     private String description;
 
-    private Type type;
+    private TType type;
 
-    private User user;
+    private TUser TUser;
 
-    private List<Tag> tags = new ArrayList<>();
+    private List<TTag> TTags = new ArrayList<>();
 
-    private List<Comment> comments = new ArrayList<>();
+    private List<TComment> TComments = new ArrayList<>();
+
+
+
+    @Override
+    public String toString() {
+        return "TBlog{" +
+                "typeId=" + typeId +','+ "title='" + title+
+                '}';
+    }
 }

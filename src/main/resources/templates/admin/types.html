@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <script src="/layui/layui.js"></script>
+    <!--jquery-->
+    <script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+</head>
+<!--导航栏-->
+<div th:replace="~{/admin/public :: nav}"></div>
+
+<div>
+    <script id="toolbarDemo" type="text/html">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal" lay-event="add">新增分类</button>
+        </div>
+    </script>
+    <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+</script>
+<table class="layui-hide" id="test" lay-skin="line" lay-filter="test"> </table>
+<script  th:inline="none">
+    layui.use(['table','laypage'], function(){
+        var table = layui.table
+
+        table.render({
+            toolbar: '#toolbarDemo'
+
+            ,elem: '#test'
+            ,url:'/admin/typeList'
+            ,limit:10
+            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                ,layEvent: 'LAYTABLE_TIPS'
+                ,icon: 'layui-icon-tips'
+            }]
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [[
+                {field:'id', width:'23%',  align:'center',title: 'ID'}
+                ,{field:'name', width:'23%', align:'center', title: '分类名称'}
+                ,{field:'blogsNum', width:'23%', align:'center', title: '该分类下的博客数量'}
+                ,{title:'操作' , width:'30%', align:'center', toolbar: '#barDemo', fixed:'right'}
+            ]]
+            ,request: {
+                pageName:'page'
+                ,limitName:'limit'
+            }
+
+            ,page: true //开启分页
+        })
+
+        table.on('tool(test)', function(obj) {
+            var data = obj.data;
+            json = JSON.stringify(data);
+            switch(obj.event) {
+                case 'edit':
+                    var index=layer.open({
+                        type: 2,
+                        title: "修改分类名称",
+                        area: ['26%', '23%'],
+                        fix: false,
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        anim:0
+                        ,skin: 'layui-layer-molv',
+                        content: ["/admin/typeUpdateAndAddUI?id="+data.id, "no"],
+
+                    });
+                    break;
+
+
+                case 'del':
+                    var delIndex = layer.confirm('确定删除id为' + data.id+ "的分类吗?", function(delIndex) {
+                        $.ajax({
+                            url: "/admin/deleteType?id="+data.id,
+                            type: "post",
+                            success: function(suc) {
+                                if(suc.code == 0) {
+                                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                    layer.close(delIndex);
+                                    console.log(delIndex);
+                                    layer.msg("删除成功", {
+                                        icon: 1
+                                    });
+                                } else {
+                                    layer.msg("删除失败", {
+                                        icon: 5
+                                    });
+                                }
+                            }
+                        });
+                        layer.close(delIndex);
+                    });
+                    break;
+            }
+        });
+
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    var index2=layer.open({
+                        type: 2,
+                        title: "添加新的分类",
+                        area: ['30%', '28%'],
+                        fix: false,
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-molv',
+                        content: ["/admin/typeUpdateAndAddUI", "no"],
+                        end: function() {
+                            //刷新页面,
+                            location.reload();
+                        },
+
+                    });
+                    break;
+            };
+        });
+    });
+</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--尾巴-->
+<footer th:insert="~{/admin/public :: footer}"></footer>
+
+</body>
+</html>
