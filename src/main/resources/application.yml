@@ -4,4 +4,4 @@ spring:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://rm-bp162pgo0uzr9u0hcmo.mysql.rds.aliyuncs.com:3306/blog_dev?serverTimezone=Asia/Shanghai
     username: zlc01
-    password: zlc@@@111
+    password: ZLC@@@111

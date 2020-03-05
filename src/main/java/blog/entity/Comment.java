@@ -1,6 +1,7 @@
 package blog.entity;
 
 import blog.dto.DetailedBlog;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TComment {
+
+@TableName("t_comment")
+public class Comment {
     private Long id;
     private String nickname;
     private String email;
@@ -27,8 +30,8 @@ public class TComment {
     private String parentNickname;
 
     //回复评论
-    private List<TComment> replyTComments = new ArrayList<>();
-    private TComment parentTComment;
+    private List<Comment> replyComments = new ArrayList<>();
+    private Comment parentComment;
 
     private DetailedBlog blog;
 

@@ -1,13 +1,13 @@
 package blog.mapper;
 
-import blog.entity.TType;
+import blog.entity.Type;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 
-public interface TypeMapper extends BaseMapper<TType> {
+public interface TypeMapper extends BaseMapper<Type> {
 
-    List<TType> queryBlogById(Long id);
+    List<Type> queryBlogById(Long id);
 
     void deleteById(Long id);
 }

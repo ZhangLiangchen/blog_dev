@@ -97,7 +97,7 @@
 <script>
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
-        const element = layui.element;
+        var element = layui.element;
     });
     //表单模块
     layui.use('form', function(){
@@ -114,9 +114,9 @@
             btn: '选好了',
             btnAlign: 'c',
             yes: function(index, layero){
-                const tags = [];
+                var tags = [];
                 //获取所有选中的复选框，将值放入数组
-                const checkboxes = layer.getChildFrame("input[type='checkbox']:checked", index);
+                var checkboxes = layer.getChildFrame("input[type='checkbox']:checked", index);
                 checkboxes.each(function () {
                     tags.push($(this).val());
                 })

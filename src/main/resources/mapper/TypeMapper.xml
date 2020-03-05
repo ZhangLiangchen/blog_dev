@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog.mapper.TypeMapper">
 
-    <resultMap type="blog.entity.TType" id="TTypeMap">
+    <resultMap type="blog.entity.Type" id="TypeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <collection property="blogs" ofType="blog.entity.TBlog"  >
+        <collection property="blogs" ofType="blog.entity.Blog"  >
             <id column="v.id" property="id"/>
             <result column="title" property="title"/>
             <result column="type_id" property="typeId"/>
@@ -13,7 +13,7 @@
     </resultMap>
 
     <!--查询指定分类id下的博客-->
-    <select id="queryBlogById" parameterType="java.lang.Long" resultMap="TTypeMap">
+    <select id="queryBlogById" parameterType="java.lang.Long" resultMap="TypeMap">
         select u.*,v.id,v.title,v.type_id
         from blog_dev.t_type u,blog_dev.t_blog v
         where v.type_id =u.id and u.id=#{id}

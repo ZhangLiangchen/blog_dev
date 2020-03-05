@@ -1,7 +1,7 @@
 package blog.controller.admin;
 
 
-import blog.entity.TType;
+import blog.entity.Type;
 import blog.service.TypeService;
 
 import com.github.pagehelper.PageHelper;
@@ -39,16 +39,16 @@ public class TypeController {
                                         @RequestParam(required = false,defaultValue = "10",value = "limit")Integer limit){
 
         PageHelper.startPage(page,limit);
-        List<TType> list=typeService.list();
-        for(TType t:list){
-            List<TType> list1=typeService.queryBlogById(t.getId());
+        List<Type> list=typeService.list();
+        for(Type t:list){
+            List<Type> list1=typeService.queryBlogById(t.getId());
             System.out.println(list1.size());
-            for(TType t1:list1){
+            for(Type t1:list1){
                 System.out.println(t1.toString());
                 t.setBlogsNum(t1.getBlogs().size());
             }
         }
-       PageInfo<TType> pageInfo=new PageInfo<>(list,limit);
+       PageInfo<Type> pageInfo=new PageInfo<>(list,limit);
         Map<String,Object> result = new HashMap<>(16);
         result.put("code", 0);
         result.put("msg", "");
@@ -59,7 +59,7 @@ public class TypeController {
     }
 
     @GetMapping("/typeUpdate")
-    public String updateType(TType type){
+    public String updateType(Type type){
         typeService.updateById(type);
 
         return "success";
@@ -87,13 +87,13 @@ public class TypeController {
     }
 
     @GetMapping("/addType")
-    public String add(HttpServletResponse response,TType type){
+    public String add(HttpServletResponse response,Type type){
         //保证所有的分类id都是递增+1的
-        List<TType> list=typeService.list();
+        List<Type> list=typeService.list();
         int id1=list.size();
         int id2=id1+1;
         Long id3= Long.valueOf(id2);
-        TType type2=list.get(id1-1);
+        Type type2=list.get(id1-1);
         if(type2.getId()>list.size()){
             type.setId(type2.getId()+1);
         }

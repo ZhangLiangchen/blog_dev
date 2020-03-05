@@ -1,6 +1,6 @@
 package blog.service.impl;
 
-import blog.entity.TType;
+import blog.entity.Type;
 import blog.mapper.TypeMapper;
 import blog.service.TypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,11 +10,11 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service("TypeServiceImpl")
-public class TypeServiceImpl extends ServiceImpl<TypeMapper, TType> implements TypeService {
+public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
     @Resource
     TypeMapper typeMapper;
 
-    public List<TType> queryBlogById(Long id){
+    public List<Type> queryBlogById(Long id){
         return typeMapper.queryBlogById(id);
     }
 

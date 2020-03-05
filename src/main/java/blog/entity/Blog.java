@@ -1,5 +1,6 @@
 package blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TBlog {
+@TableName("t_blog")
+public class Blog {
 
 
     private Long id;
@@ -35,13 +37,13 @@ public class TBlog {
     private String tagIds;
     private String description;
 
-    private TType type;
+    private Type type;
 
-    private TUser TUser;
+    private User User;
 
-    private List<TTag> TTags = new ArrayList<>();
+    private List<Tag> Tags = new ArrayList<>();
 
-    private List<TComment> TComments = new ArrayList<>();
+    private List<Comment> Comments = new ArrayList<>();
 
 
 

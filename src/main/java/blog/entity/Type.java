@@ -2,6 +2,7 @@ package blog.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TType {
+
+@TableName("t_type")
+public class Type {
     private Long id;
     private String name;
 
@@ -28,7 +31,7 @@ public class TType {
     private int blogsNum;
 
     @TableField(exist = false)
-    private List<TBlog> blogs = new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -46,11 +49,11 @@ public class TType {
         this.name = name;
     }
 
-    public List<TBlog> getBlogs() {
+    public List<Blog> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<TBlog> blogs) {
+    public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
     }
 }

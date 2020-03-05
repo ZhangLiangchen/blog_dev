@@ -49,15 +49,15 @@
 <script>
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
-        const element = layui.element;
+        var element = layui.element;
     });
     //表单模块
     layui.use('form', function(){
-        const form = layui.form;
+        var form = layui.form;
     });
     //年月选择器
     layui.use('laydate', function(){
-        const laydate = layui.laydate;
+        var laydate = layui.laydate;
         laydate.render({
             elem: '#dateSelector'
             ,type: 'month'
@@ -65,7 +65,7 @@
     });
     //数据表格
     layui.use('table', function(){
-        const table = layui.table;
+        var table = layui.table;
         table.render({
             elem: '#blogsTable',
             url: '/admin/blogs/list',

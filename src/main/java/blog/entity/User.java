@@ -1,5 +1,6 @@
 package blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TUser {
+
+@TableName("t_user")
+public class User {
     private Long id;
     private String nickname;
     private String username;
@@ -22,5 +25,5 @@ public class TUser {
     private Date createTime;
     private Date updateTime;
 
-    private List<TBlog> blogs = new ArrayList<>();
+    private List<Blog> blogs = new ArrayList<>();
 }
