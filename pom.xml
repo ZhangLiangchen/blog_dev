@@ -71,7 +71,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--spring-boot热部署-->
+
         <!--pageHelper 分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -89,6 +89,7 @@
             </exclusions>
         </dependency>
 
+        <!--spring-boot热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
