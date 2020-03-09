@@ -24,26 +24,26 @@
     </resultMap>
     <select id="getAllBlogQuery" resultMap="blog">
         select b.id, b.title, b.update_time, b.recommend, b.type_id, t.id, t.name
-        from blog_dev.t_blog b
+        from blog.t_blog b
                  left outer join
-             blog_dev.t_type t on b.type_id = t.id
+             blog.t_type t on b.type_id = t.id
         order by b.update_time desc
     </select>
 
     <delete id="deleteBlog">
         delete
-        from blog_dev.t_blog
+        from blog.t_blog
         where id = #{id}
     </delete>
 
     <delete id="deleteBlogAndTag">
         delete
-        from blog_dev.t_blog_tags
+        from blog.t_blog_tags
         where blog_id = #{blogId}
     </delete>
 
     <insert id="saveBlog" parameterType="blog.entity.Blog">
-        insert into blog_dev.t_blog (id, title, content, first_picture, flag,
+        insert into blog.t_blog (id, title, content, first_picture, flag,
                                      views, appreciation, share_statement, commentabled, published,
                                      recommend, create_time, update_time, type_id, tag_ids, user_id, description)
         values (#{id}, #{title}, #{content}, #{firstPicture}, #{flag}, #{views}, #{appreciation},
@@ -52,13 +52,13 @@
     </insert>
 
     <insert id="saveBlogAndTag" parameterType="blog.dto.BlogAndTag">
-        insert into blog_dev.t_blog_tags (tag_id, blog_id)
+        insert into blog.t_blog_tags (tag_id, blog_id)
         values (#{tagId}, #{blogId});
     </insert>
 
     <select id="searchByTitleOrTypeOrRecommend" parameterType="blog.dto.SearchBlog" resultMap="blog">
         <bind name="pattern" value="'%' + title + '%'"/>
-        select b.id,b.title,b.update_time,b.recommend,b.type_id,t.id,t.name from blog_dev.t_blog b ,blog_dev.t_type t
+        select b.id,b.title,b.update_time,b.recommend,b.type_id,t.id,t.name from blog.t_blog b ,blog.t_type t
         <where>
             <if test="1 == 1">
                 b.type_id = t.id
@@ -90,12 +90,12 @@
                b.share_statement,
                b.appreciation,
                b.commentabled
-        from blog_dev.t_blog b
+        from blog.t_blog b
         where b.id = #{id};
     </select>
 
     <update id="updateBlog" parameterType="blog.dto.ShowBlog">
-        update blog_dev.t_blog
+        update blog.t_blog
         set published       = #{published},
             flag            = #{flag},
             title           = #{title},
@@ -137,9 +137,9 @@
                t.name,
                u.nickname,
                u.avatar
-        from blog_dev.t_blog b,
-             blog_dev.t_type t,
-             blog_dev.t_user u
+        from blog.t_blog b,
+             blog.t_type t,
+             blog.t_user u
         where b.type_id = t.id
           and u.id = b.user_id
         order by b.update_time desc
@@ -147,7 +147,7 @@
 
     <select id="getAllRecommendBlog" resultType="blog.dto.RecommendBlog">
         select id, title, recommend
-        from blog_dev.t_blog;
+        from blog.t_blog;
     </select>
 
 
@@ -156,7 +156,7 @@
         select b.id,b.title,b.first_picture, b.views,b.update_time,b.description,
         t.name ,
         u.nickname, u.avatar
-        from blog_dev.t_blog b, blog_dev.t_type t,blog_dev.t_user u
+        from blog.t_blog b, blog.t_type t,blog.t_user u
         where b.type_id = t.id and u.id = b.user_id and (b.title like #{pattern} or b.content like #{pattern})
         order by b.update_time desc
     </select>
@@ -195,10 +195,10 @@
                u.avatar,
                t.id tid,
                t.name
-        from blog_dev.t_blog b,
-             blog_dev.t_user u,
-             blog_dev.t_tag t,
-             blog_dev.t_blog_tags tb
+        from blog.t_blog b,
+             blog.t_user u,
+             blog.t_tag t,
+             blog.t_blog_tags tb
         where b.user_id = u.id
           and tb.blog_id = b.id
           and tb.tag_id = t.id
@@ -215,9 +215,9 @@
                t.name,
                u.nickname,
                u.avatar
-        from blog_dev.t_blog b,
-             blog_dev.t_type t,
-             blog_dev.t_user u
+        from blog.t_blog b,
+             blog.t_type t,
+             blog.t_user u
         where b.type_id = t.id
           and u.id = b.user_id
           and b.type_id = #{typeId}
@@ -234,11 +234,11 @@
                t.name,
                u.nickname,
                u.avatar
-        from blog_dev.t_blog b,
-             blog_dev.t_type t,
-             blog_dev.t_user u,
-             blog_dev.t_blog_tags tb,
-             blog_dev.t_tag t1
+        from blog.t_blog b,
+             blog.t_type t,
+             blog.t_user u,
+             blog.t_blog_tags tb,
+             blog.t_tag t1
         where b.type_id = t.id
           and u.id = b.user_id
           and tb.blog_id = b.id
