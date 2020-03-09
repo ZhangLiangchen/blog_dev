@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>标签管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+</head>
+<body>
+<!--导航栏-->
+<div th:replace="~{/admin/public :: nav}"></div>
+<div class="layui-container">
+<table class="layui-table" lay-even="" lay-skin="row" style="margin-top: 60px" >
+    <colgroup>
+        <col width="10%">
+        <col width="15%">
+        <col width="25%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>贤心</td>
+        <td>1989-10-14</td>
+        <td><button   type="button" class="layui-btn layui-btn-sm">编辑</button>
+            <button    type="button" class="layui-btn layui-btn-sm layui-btn-normal">删除</button></td>
+    </tr>
+    <tr>
+
+        <th colspan="2" th:border="0">
+        <div id="demo5">
+        </div>
+        </th>
+        <th th:border="0">
+            <div >
+            <button  type="button" class="layui-btn layui-btn-primary layui-btn-sm" style="background-color: #33CC70;color: white">新增</button>
+            </div>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</div>
+<!--尾巴-->
+<footer th:insert="~{/admin/public :: footer}"></footer>
+<script src="/layui/layui.js"></script>
+<script>
+    //layui导航依赖element模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+        element.on({});
+    });
+    //表格模块
+
+    //分页模块
+    layui.use(['laypage', 'layer'], function() {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        //开启HASH
+        laypage.render({
+            elem: 'demo5'
+            ,count: 500
+            ,curr: location.hash.replace('#!fenye=', '') //获取hash值为fenye的当前页
+            ,hash: 'fenye' //自定义hash值
+        });
+
+
+        //分页测试数据
+
+        var data = [
+            '北京',
+            '上海',
+            '广州',
+            '深圳',
+            '杭州',
+            '长沙',
+            '合肥',
+            '宁夏',
+            '成都',
+            '西安',
+            '南昌',
+            '上饶',
+            '沈阳',
+            '济南',
+            '厦门',
+            '福州',
+            '九江',
+            '宜春',
+            '赣州',
+            '宁波',
+            '绍兴',
+            '无锡',
+            '苏州',
+            '徐州',
+            '东莞',
+            '佛山',
+            '中山',
+            '成都',
+            '武汉',
+            '青岛',
+            '天津',
+            '重庆',
+            '南京',
+            '九江',
+            '香港',
+            '澳门',
+            '台北'
+        ];
+
+        //调用分页
+        laypage.render({
+            elem: 'demo20'
+            ,count: data.length
+            ,jump: function(obj){
+                //模拟渲染
+                document.getElementById('biuuu_city_list').innerHTML = function(){
+                    var arr = []
+                        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                    layui.each(thisData, function(index, item){
+                        arr.push('<li>'+ item +'</li>');
+                    });
+                    return arr.join('');
+                }();
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>
