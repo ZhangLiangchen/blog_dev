@@ -15,13 +15,13 @@
     <!--查询指定分类id下的博客-->
     <select id="queryBlogById" parameterType="java.lang.Long" resultMap="TypeMap">
         select u.*,v.id,v.title,v.type_id
-        from blog_dev.t_type u,blog_dev.t_blog v
+        from blog.t_type u,blog.t_blog v
         where v.type_id =u.id and u.id=#{id}
     </select>
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
-        from blog_dev.t_type
+        from blog.t_type
         where id = #{id}
     </delete>
 </mapper>

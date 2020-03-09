@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Service("TypeServiceImpl")
+@Service
 public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
     @Resource
     TypeMapper typeMapper;

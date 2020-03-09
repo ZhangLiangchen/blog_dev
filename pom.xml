@@ -57,7 +57,23 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.3.1.tmp</version>
+        </dependency>
 
+        <!--这三个jar包作用是将markdown格式转成html格式-->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>0.10.0</version>
         </dependency>
         <!--p6spy打印sql日志-->
         <dependency>
@@ -72,11 +88,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--pageHelper 分页插件-->
+        <!--pageHelper分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.13</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mybatis</groupId>
