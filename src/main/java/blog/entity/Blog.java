@@ -1,5 +1,6 @@
 package blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,12 +38,16 @@ public class Blog {
     private String tagIds;
     private String description;
 
+    @TableField(exist = false)
     private Type type;
 
+    @TableField(exist = false)
     private User User;
 
+    @TableField(exist = false)
     private List<Tag> Tags = new ArrayList<>();
 
+    @TableField(exist = false)
     private List<Comment> Comments = new ArrayList<>();
 
 
