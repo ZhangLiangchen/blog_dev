@@ -1,6 +1,7 @@
 package blog.controller.admin;
 
 
+import blog.dto.BlogTable;
 import blog.entity.Blog;
 import blog.entity.Tag;
 import blog.entity.Type;
@@ -17,7 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//博客管理
+/**
+ * 博客管理模块
+ * @author 浅忆
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
@@ -33,7 +38,9 @@ public class BlogController {
      * 进入博客管理首页
      */
     @GetMapping("/blogs")
-    public String manageBlog() {
+    public String manageBlog(Model model) {
+        List<Type> types = typeService.list();
+        model.addAttribute("types", types);
         return "admin/blogs";
     }
 
@@ -43,7 +50,7 @@ public class BlogController {
     @ResponseBody
     @RequestMapping("/blogs/list")
     public Map<String,Object> listBlog(Model model) {
-        List<Blog> blogs = blogService.list();
+        List<BlogTable> blogs = blogService.getBlogTable();
         Map<String,Object> result = new HashMap<>(16);
         result.put("data", blogs);
         result.put("message", "");
@@ -83,12 +90,13 @@ public class BlogController {
      */
     @PostMapping("/blogs")
     public String saveBlog(Blog blog) {
-        //如果是新增博客，设置创建时间和阅读量
+        //如果是新增博客，设置创建时间和初始阅读量
         if (blog.getId() == null) {
             blog.setCreateTime(new Date());
             blog.setViews(0);
+            blog.setFlag("原创");
         }
-        blog.setFlag("原创");
+        //更新修改时间
         blog.setUpdateTime(new Date());
         blogService.saveOrUpdate(blog);
         return "redirect:/admin/blogs";

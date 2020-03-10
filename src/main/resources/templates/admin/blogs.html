@@ -17,16 +17,16 @@
     <form class="layui-form" style="margin-top: 60px">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="padding-bottom: 10px">
-                <input type="text" name="title" placeholder="查找标题" autocomplete="off" class="layui-input">
+                <input type="text" name="title" placeholder="输入标题" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline" style="padding-bottom: 10px">
                 <select name="type">
-                    <option value="">分类</option>
-                    <!--待填充-->
+                    <option value="">选择分类</option>
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
             </div>
             <div class="layui-input-inline layui-hide-xs">
-                <input type="text" name="date" id="dateSelector" placeholder="年月" autocomplete="off" class="layui-input">
+                <input type="text" name="date" id="dateSelector" placeholder="选择年月" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <button type="reset" class="layui-btn layui-bg-gray">清空</button>
@@ -77,14 +77,15 @@
             skin: 'line',
             page: true,
             title: '博客信息表',
+            cellMinWidth: 90,   //定义全局单元格最小宽度
             cols: [[
-                {field: 'id', title: 'ID', hide: 'true'},
-                {field: 'title', title: '标题', width: 360},
-                {field: 'typeId', title: '类型', align: 'center'},
-                {field: 'published', title: '状态', align: 'center'},
-                {field: 'updateTime', title: '更新时间', width: 200, align: 'center'},
-                {field: 'views', title: '阅读量', align: 'center'},
-                {fixed: 'right', title: '操作', toolbar: '#tableBar', width: 160, align: 'center'},
+                {field: 'id', width: 55, align: 'center'},
+                {field: 'title', title: '博客标题', width: 340},
+                {field: 'typeName', title: '类型', align: 'center'},
+                {field: 'state', title: '状态', align: 'center', sort: 'true'},
+                {field: 'views', title: '阅读量', align: 'center', sort: 'true'},
+                {field: 'updateTime', title: '更新时间', align: 'center', sort: 'true', width: 190},
+                {fixed: 'right', title: '操作', toolbar: '#tableBar', align: 'center', minWidth: 120},
             ] ],
         });
         //监听工具条

@@ -11,7 +11,7 @@
         <result property="avatar" column="avatar"/>
     </resultMap>
 
-    <resultMap id="blog" type="blog.dto.BlogQuery">
+    <resultMap id="blog" type="blog.dto.BlogTable">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="updateTime" column="update_time"/>
@@ -246,4 +246,11 @@
           and t1.id = #{tagId}
         order by b.update_time desc
     </select>
+
+    <!--By xh-->
+    <select id="getBlogTable" resultType="blog.dto.BlogTable">
+        select b.id,title,update_time,published,t.name typename,views
+        from t_blog b join t_type t where b.type_id = t.id
+    </select>
+
 </mapper>
