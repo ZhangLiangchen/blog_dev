@@ -14,7 +14,7 @@
 <div class="layui-container">
 
     <!--查找工具条-->
-    <form class="layui-form" style="margin-top: 60px" action="/admin/blogs/query" method="post">
+    <form class="layui-form" style="margin-top: 60px" action="/admin/blogs" method="post">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="padding-bottom: 10px">
                 <input type="text" name="title" placeholder="输入标题" autocomplete="off" class="layui-input">
@@ -74,13 +74,10 @@
         var table = layui.table;
         var tableIns = table.render({
             elem: '#blogTable',
-            url: '/admin/blogs/list' +
-                '?title=[[${condition.title}]]' +
-                '&typeId=[[${condition.typeId}]]' +
-                '&date=[[${condition.date}]]',
+            url: '/admin/blogs/list?title=[[${condition.title}]]&typeId=[[${condition.typeId}]]&date=[[${condition.date}]]',
             skin: 'line',
             page: true,
-            title: '博客信息表',
+            limit: 7,
             cellMinWidth: 90,   //定义全局单元格最小宽度
             cols: [[
                 {field: 'id', width: 55, align: 'center'},

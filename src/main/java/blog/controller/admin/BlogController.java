@@ -9,6 +9,8 @@ import blog.entity.Type;
 import blog.service.BlogService;
 import blog.service.TagService;
 import blog.service.TypeService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,18 +38,10 @@ public class BlogController {
     private TagService tagService;
 
     /**
-     * Get请求，进入博客管理首页
+     * 进入博客管理首页，若为查询操作，向页面传递查询条件
      */
-    @GetMapping("/blogs")
+    @RequestMapping("/blogs")
     public String manageBlog(Model model,SearchBlog searchBlog) {
-        List<Type> types = typeService.list();
-        model.addAttribute("types", types);
-        model.addAttribute("condition", searchBlog);
-        return "admin/blogs";
-    }
-
-    @PostMapping("blogs/query")
-    public String queryBlog(Model model,SearchBlog searchBlog) {
         List<Type> types = typeService.list();
         model.addAttribute("types", types);
         model.addAttribute("condition", searchBlog);
@@ -59,12 +53,14 @@ public class BlogController {
      */
     @ResponseBody
     @RequestMapping("/blogs/list")
-    public Map<String,Object> listBlog(SearchBlog searchBlog) {
+    public Map<String,Object> listBlog(SearchBlog searchBlog, Integer page, Integer limit) {
+        PageHelper.startPage(page, limit);
         List<BlogTable> blogs = blogService.getBlogTable(searchBlog);
+        PageInfo<BlogTable> pageInfo = new PageInfo<>(blogs, limit);
         Map<String,Object> result = new HashMap<>(16);
+        result.put("count", pageInfo.getTotal());
         result.put("data", blogs);
         result.put("message", "");
-        result.put("count", blogs.size());
         result.put("code", 0);
         return result;
     }
