@@ -1,9 +1,6 @@
 package blog.service;
 
-import blog.dto.BlogTable;
-import blog.dto.DetailedBlog;
-import blog.dto.FirstPageBlog;
-import blog.dto.RecommendBlog;
+import blog.dto.*;
 import blog.entity.Blog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -18,6 +15,6 @@ public interface BlogService extends IService<Blog> {
 
     DetailedBlog getDetailedBlog(Long id);
 
-    List<BlogTable> getBlogTable();
+    List<BlogTable> getBlogTable(SearchBlog searchBlog);
 
 }

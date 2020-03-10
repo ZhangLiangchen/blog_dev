@@ -2,12 +2,15 @@ package blog.controller.admin;
 
 
 import blog.dto.BlogTable;
+import blog.dto.SearchBlog;
 import blog.entity.Blog;
 import blog.entity.Tag;
 import blog.entity.Type;
 import blog.service.BlogService;
 import blog.service.TagService;
 import blog.service.TypeService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,26 +38,29 @@ public class BlogController {
     private TagService tagService;
 
     /**
-     * 进入博客管理首页
+     * 进入博客管理首页，若为查询操作，向页面传递查询条件
      */
-    @GetMapping("/blogs")
-    public String manageBlog(Model model) {
+    @RequestMapping("/blogs")
+    public String manageBlog(Model model,SearchBlog searchBlog) {
         List<Type> types = typeService.list();
         model.addAttribute("types", types);
+        model.addAttribute("condition", searchBlog);
         return "admin/blogs";
     }
 
     /**
-     * 接收ajax请求返回博客列表数据
+     * 博客列表组合条件查询，返回json数据
      */
     @ResponseBody
     @RequestMapping("/blogs/list")
-    public Map<String,Object> listBlog(Model model) {
-        List<BlogTable> blogs = blogService.getBlogTable();
+    public Map<String,Object> listBlog(SearchBlog searchBlog, Integer page, Integer limit) {
+        PageHelper.startPage(page, limit);
+        List<BlogTable> blogs = blogService.getBlogTable(searchBlog);
+        PageInfo<BlogTable> pageInfo = new PageInfo<>(blogs, limit);
         Map<String,Object> result = new HashMap<>(16);
+        result.put("count", pageInfo.getTotal());
         result.put("data", blogs);
         result.put("message", "");
-        result.put("count", blogs.size());
         result.put("code", 0);
         return result;
     }
@@ -86,9 +92,9 @@ public class BlogController {
     }
 
     /**
-     * 保存编辑的博客，包括新增和修改的博客
+     * Post请求，保存编辑的博客，包括新增和修改的博客
      */
-    @PostMapping("/blogs")
+    @PostMapping("/blog/save")
     public String saveBlog(Blog blog) {
         //如果是新增博客，设置创建时间和初始阅读量
         if (blog.getId() == null) {

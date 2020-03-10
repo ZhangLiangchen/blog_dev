@@ -248,9 +248,20 @@
     </select>
 
     <!--By xh-->
-    <select id="getBlogTable" resultType="blog.dto.BlogTable">
+    <select id="getBlogTable" parameterType="blog.dto.SearchBlog" resultType="blog.dto.BlogTable">
         select b.id,title,update_time,published,t.name typename,views
-        from t_blog b join t_type t where b.type_id = t.id
+        from t_blog b join t_type t on b.type_id = t.id
+        <where>
+            <if test="title!=null and title!='' ">
+                and title like concat('%',#{title},'%')
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and type_id = #{typeId}
+            </if>
+            <if test="date!=null and date!='' ">
+                and update_time between '${date}-01' and '${nextDate}-01'
+            </if>
+        </where>
     </select>
 
 </mapper>

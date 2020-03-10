@@ -1,9 +1,6 @@
 package blog.mapper;
 
-import blog.dto.BlogTable;
-import blog.dto.DetailedBlog;
-import blog.dto.FirstPageBlog;
-import blog.dto.RecommendBlog;
+import blog.dto.*;
 import blog.entity.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,6 +20,6 @@ public interface BlogMapper extends BaseMapper<Blog> {
 
     DetailedBlog getDetailedBlog(Long id);
 
-    List<BlogTable> getBlogTable();
+    List<BlogTable> getBlogTable(SearchBlog searchBlog);
 
 }

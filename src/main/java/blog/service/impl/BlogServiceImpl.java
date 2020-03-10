@@ -1,9 +1,6 @@
 package blog.service.impl;
 
-import blog.dto.BlogTable;
-import blog.dto.DetailedBlog;
-import blog.dto.FirstPageBlog;
-import blog.dto.RecommendBlog;
+import blog.dto.*;
 import blog.entity.Blog;
 import blog.entity.Type;
 import blog.exception.NotFountException;
@@ -12,6 +9,7 @@ import blog.mapper.TypeMapper;
 import blog.service.BlogService;
 import blog.util.MarkdownUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,8 +59,25 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     }
 
     @Override
-    public List<BlogTable> getBlogTable() {
-        List<BlogTable> blogs = blogMapper.getBlogTable();
+    public List<BlogTable> getBlogTable(SearchBlog searchBlog) {
+
+        //日期条件处理
+        String date = searchBlog.getDate();
+        if (date != null && !date.equals("")) {
+            String[] yearAndMonth = date.split("-");
+            int year = Integer.parseInt(yearAndMonth[0]);
+            int month = Integer.parseInt(yearAndMonth[1]);
+            if (month == 12) {
+                year++;
+                month = 1;
+            } else {
+                month++;
+            }
+            String nextDate = year + "-" + month;
+            searchBlog.setNextDate(nextDate);
+        }
+
+        List<BlogTable> blogs = blogMapper.getBlogTable(searchBlog);
         for (BlogTable blog : blogs) {
             //发布状态处理
             if (blog.getPublished() == true) {
