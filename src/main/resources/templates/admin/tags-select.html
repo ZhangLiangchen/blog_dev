@@ -8,13 +8,8 @@
 <body>
 <div class="layui-form">
     <div class="layui-form-item" style="margin: 0 15px">
-        <input type="checkbox" lay-skin="primary" title="阅读" value="标签">
-        <input type="checkbox" lay-skin="primary" title="游戏" value="标签2">
-        <input type="checkbox" lay-skin="primary" title="游戏">
-        <input type="checkbox" lay-skin="primary" title="写作">
-        <input type="checkbox" lay-skin="primary" title="阅读">
-        <input type="checkbox" lay-skin="primary" title="游戏">
-        <input type="checkbox" lay-skin="primary" title="游戏">
+        <input type="checkbox" lay-skin="primary" th:each="tag : ${tags}"
+        th:title="${tag.name}" th:value="${tag.id}">
     </div>
 </div>
 <script src="/layui/layui.js"></script>

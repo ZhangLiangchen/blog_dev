@@ -23,12 +23,12 @@
         <div class="layui-form-item layui-form-pane">
             <label class="layui-form-label">标题</label>
             <div class="layui-input-block">
-                <input type="text" name="title" autocomplete="off" class="layui-input" lay-verify="required">
+                <input type="text" name="title" autocomplete="off" class="layui-input" lay-verify="required" th:value="${b.title}">
             </div>
         </div>
         <!--MD编辑器-->
         <div class="layui-form-item" id="md-content" style="z-index: 1;">
-            <textarea name="content" class="layui-textarea" style="display:none;" lay-verify="required"></textarea>
+            <textarea name="content" class="layui-textarea" style="display:none;" lay-verify="required" th:text="${b.content}"></textarea>
         </div>
         <!--分类、标签、首图-->
         <div class="layui-form-item">
@@ -39,8 +39,7 @@
                     <label class="layui-form-label">分类</label>
                     <div class="layui-input-block">
                         <select name="typeId" lay-verify="required">
-                            <option value="0">测试</option>
-                            <!--待填充-->
+                            <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}" th:selected="${type.id.equals(b.typeId)}"></option>
                         </select>
                     </div>
                 </div>
@@ -48,7 +47,7 @@
                     <!--标签-->
                     <label class="layui-form-label">标签</label>
                     <div class="layui-input-block">
-                        <input type="text" id="tags-input" name="tagIds" class="layui-input"
+                        <input type="text" id="tags-input" name="tagIds" class="layui-input" th:value="${b.tagIds}"
                                placeholder="点击选择标签" onclick="tagsSelector();" autocomplete="off">
                     </div>
                 </div>
@@ -56,17 +55,27 @@
                     <!--首图-->
                     <label class="layui-form-label">首图</label>
                     <div class="layui-input-block">
-                        <input type="text" name="firstPicture" placeholder="首图引用地址" autocomplete="off" class="layui-input">
+                        <input type="text" name="firstPicture" placeholder="首图引用地址" autocomplete="off" class="layui-input" th:value="${b.firstPicture}">
                     </div>
                 </div>
             </div>
         </div>
         <!--描述-->
         <div class="layui-form-item layui-form-pane">
-            <textarea name="description" placeholder="简要描述一下这篇博文吧..." autocomplete="off" class="layui-textarea"></textarea>
+            <textarea name="description" placeholder="简要描述一下这篇博文吧..." autocomplete="off" class="layui-textarea" th:text="${b.description}"></textarea>
         </div>
-        <!--是否发布-->
+        <!--隐藏部分-->
         <input type="hidden" name="published">
+        <input type="hidden" name="id" th:value="${b.id}">
+        <!--新增博客时创建时间为空，空字符串不能转换为日期，故不参与提交-->
+        <input type="hidden" name="createTime" th:value="${b.createTime}" th:if="${not #strings.isEmpty(b.createTime)}">
+        <input type="hidden" name="userId" th:value="${b.userId}">
+        <input type="hidden" name="views" th:value="${b.views}">
+        <input type="hidden" name="flag" th:value="${b.flag}">
+        <input type="hidden" name="recommend" th:value="${b.recommend}">
+        <input type="hidden" name="shareStatement" th:value="${b.shareStatement}">
+        <input type="hidden" name="appreciation" th:value="${b.appreciation}">
+        <input type="hidden" name="commentabled" th:value="${b.commentabled}">
         <!--按钮组-->
         <div class="layui-form-item" style="margin-top: 10px;float: right;">
             <button type="button" class="layui-btn layui-btn-primary" onclick="window.history.go(-1)">返回</button>
@@ -87,11 +96,9 @@
     /*点击保存或发布按钮后，动态修改字段值，1表示发布*/
     $('#saveBtn').click(function () {
         $('[name="published"]').val(0);
-
     });
     $('#pubBtn').click(function () {
         $('[name="published"]').val(1);
-
     });
 </script>
 <script>
@@ -108,9 +115,9 @@
         layer.open({
             type: 2,
             title: '博客标签',
-            area: '350px',
+            area: '360px',
             fixed: false,
-            content: '/admin/blog/input/selectTags',
+            content: '/admin/blog/input/selectTags?tagIds=[[${b.tagIds}]]',
             btn: '选好了',
             btnAlign: 'c',
             yes: function(index, layero){
