@@ -27,4 +27,22 @@ public interface BlogMapper extends BaseMapper<Blog> {
     List<FirstPageBlog> getByTypeId(Long typeId);
 
     List<FirstPageBlog> getByTagId(Long tagId);
+
+
+    ///////
+    ShowBlog getBlogById(Long id);
+
+    List<BlogQuery> getAllBlogQuery();
+
+    int saveBlog(Blog blog);
+
+    int deleteBlog(Long id);
+
+    int updateBlog(ShowBlog showBlog);
+
+    int saveBlogAndTag(BlogAndTag blogAndTag);
+
+    int deleteBlogAndTag(Long blogId);
+
+    List<BlogQuery> searchByTitleOrTypeOrRecommend(SearchBlog searchBlog);
 }

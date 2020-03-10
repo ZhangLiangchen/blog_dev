@@ -47,7 +47,6 @@ public class BlogController {
         model.addAttribute("condition", searchBlog);
         return "admin/blogs";
     }
-
     /**
      * 博客列表组合条件查询，返回json数据
      */

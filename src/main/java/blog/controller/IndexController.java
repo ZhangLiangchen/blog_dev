@@ -19,26 +19,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 //首页
 @Controller
 public class IndexController {
 
-    private final BlogService blogService;
+    @Resource
+    private BlogService blogService;
 
-    private final TagService tagService;
+    @Resource
+    private TagService tagService;
 
-    private final TypeService typeService;
+    @Resource
+    private TypeService typeService;
 
-    private final CommentService commentService;
-
-    public IndexController(BlogService blogService, TagService tagService, TypeService typeService, CommentService commentService) {
-        this.blogService = blogService;
-        this.tagService = tagService;
-        this.typeService = typeService;
-        this.commentService = commentService;
-    }
+    @Resource
+    private CommentService commentService;
 
     /**
      * 语法：@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””)
@@ -77,7 +75,7 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         DetailedBlog detailedBlog = blogService.getDetailedBlog(id);
-        List<Comment> comments = commentService.list();
+        List<Comment> comments = commentService.listCommentByBlogId(id);
         model.addAttribute("comments", comments);
         model.addAttribute("blog", detailedBlog);
         return "blog";

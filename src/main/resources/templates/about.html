@@ -1,140 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="_fragments :: head(~{::title})">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
-<!--加载meta IE兼容文件-->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>关于我</title>
+  <link href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
+  <link href="../static/css/me.css" rel="stylesheet">
 </head>
 <body>
-  <div class="header">
-    <div class="menu-btn">
-      <div class="menu"></div>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="_fragments :: menu(5)">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui purple header item">Blog</h2>
+      <a class=" m-item item m-mobile-hide" href="#"><i class="mini home icon"></i>首页</a>
+      <a class=" m-item item m-mobile-hide" href="#"><i class="mini idea icon"></i>分类</a>
+      <a class=" m-item item m-mobile-hide" href="#"><i class="mini tags icon"></i>标签</a>
+      <a class=" m-item item m-mobile-hide" href="#"><i class="mini clone icon"></i>归档</a>
+      <a class="active m-item item m-mobile-hide" href="#"><i class="mini info icon"></i>关于我</a>
+      <div class="right m-item item m-mobile-hide">
+        <div class="ui icon inverted  input m-margin-tb-tiny">
+          <input placeholder="Search...." type="text">
+          <i class="search link icon"></i>
+        </div>
+      </div>
     </div>
-    <h1 class="logo">
-      <a href="index.html">
-        <span>MYBLOG</span>
-        <img src="/img/logo.png">
-      </a>
-    </h1>
-    <div class="nav">
-      <a href="index.html">文章</a>
-      <a href="whisper.html">微语</a>
-      <a href="leacots.html">留言</a>
-      <a href="album.html">相册</a>
-      <a href="about.html"  class="active">关于</a>
+  </div>
+  <a class="ui menu toggle black icon button m-right-top m-mobile-show" href="#">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<div class="m-container m-padded-tb-big">
+  <div class="ui m-container">
+
+    <!--stackable加上就有了手机端响应式-->
+    <div class="ui stackable grid">
+
+      <div class="eleven wide column">
+        <div class="ui segment">
+          <img class="ui rounded fluid image" src="../static/image/关于我.jpg" th:src="@{/image/关于我.jpg}">
+        </div>
+      </div>
+
+      <div class="five wide column">
+        <div class="ui top segment attached">
+          <div class="ui header">关于我</div>
+        </div>
+        <div class="ui attached segment">
+          <p class="m-text">你好</p>
+          <p class="m-text">朋友</p>
+        </div>
+        <div class="ui attached segment">
+          <div class="ui orange basic left pointing label">编程</div>
+          <div class="ui orange basic left pointing label">写作</div>
+          <div class="ui orange basic left pointing label">思考</div>
+          <div class="ui orange basic left pointing label">运动</div>
+        </div>
+        <div class="ui attached segment">
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">MYSQL</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">...</div>
+        </div>
+        <div class="ui bottom attached segment">
+          <a class="ui circular icon button" href="#"><i class="github icon"></i></a>
+          <a class="ui wechat circular icon button" href="#"><i class="weixin icon"></i></a>
+          <a class="ui qq circular icon button" data-content="1437810640" data-position="bottom center" href="#"><i
+                  class="qq icon"></i></a>
+        </div>
+
+        <div class="ui wechat-qr flowing popup transition hidden">
+          <img alt="" class="ui rounded image" src="../static/image/微信名片.png" style="width: 110px">
+        </div>
+
+      </div>
+
     </div>
-    <ul class="layui-nav header-down-nav">
-      <li class="layui-nav-item"><a href="index.html">文章</a></li>
-      <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-      <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-      <li class="layui-nav-item"><a href="album.html">相册</a></li>
-      <li class="layui-nav-item"><a href="about.html"  class="active">关于</a></li>
-    </ul>
-    <p class="welcome-text">
-      欢迎来到<span class="name">小明</span>的博客~
-    </p>
+
+  </div>
+</div>
+
+<br>
+<br>
+<!--底部footer-->
+<footer class="ui inverted vertical segment m-padded-tb-massive" th:replace="_fragments :: footer">
+  <div class="ui center aligned container">
+    <div class="ui inverted divided stackable grid">
+      <div class="three wide column">
+        <div class="ui inverted link list">
+          <div class="item">
+            <img alt="" class="ui rounded image" src="../static/image/1.jpg" style="width: 110px">
+          </div>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+        <div class="ui inverted link list">
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+          <a class="item m-text-thin" href="#">用户故事（User Story）</a>
+        </div>
+      </div>
+      <div class="three wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+        <div class="ui inverted link list">
+          <a class="item m-text-thin" href="#">QQ：1437810640</a>
+        </div>
+      </div>
+      <div class="seven wide column">
+        <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的内容</p>
+      </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+    <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 </p>
   </div>
 
-  <div class="about-content">
-    <div class="w1000">
-      <div class="item info">
-        <div class="title">
-          <h3>我的介绍</h3>
-        </div>
-        <div class="cont">
-          <img src="/img/xc_img1.jpg">
-          <div class="per-info">
-            <p>
-              <span class="name">小明</span><br />
-              <span class="age">24岁</span><br />
-              <span class="Career">设计师, 前端工程师</span><br />
-              <span class="interest">爱好旅游,打游戏</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="item tool">
-        <div class="title">
-          <h3>我的技能</h3>
-        </div>
-        <div class="layui-fluid">
-          <div class="layui-row">
-            <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-              <div class="cont-box">
-                <img src="/img/gr_img2.jpg">
-                <p>80%</p>
-              </div>
-            </div>
-            <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-              <div class="cont-box">
-                <img src="/img/gr_img3.jpg">
-                <p>80%</p>
-              </div>
-            </div>
-            <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-              <div class="cont-box">
-                <img src="/img/gr_img4.jpg">
-                <p>80%</p>
-              </div>
-            </div>
-            <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-              <div class="cont-box">
-                <img src="/img/gr_img5.jpg">
-                <p>80%</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item contact">
-        <div class="title">
-          <h3>联系方式</h3>
-        </div>
-        <div class="cont">
-          <img src="/img/erweima.jpg">
-          <div class="text">
-            <p class="WeChat">微信：<span>1234567890</span></p>
-            <p class="qq">qq：<span>123456789</span></p>
-            <p class="iphone">电话：<span>123456789</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
+</footer>
 
-  <div class="footer-wrap">
-    <div class="footer w1000">
-      <div class="qrcode">
-        <img src="/img/erweima.jpg">
-      </div>
-      <div class="practice-mode">
-        <img src="/img/down_img.jpg">
-        <div class="text">
-          <h4 class="title">我的联系方式</h4>
-          <p>微信<span class="WeChat">1234567890</span></p>
-          <p>手机<span class="iphone">1234567890</span></p>
-          <p>邮箱<span class="email">1234567890@qq.com</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript" src="/layui/layui.js"></script>
-  <script type="text/javascript">
-    layui.config({
-      base: '/js/util/'
-    }).use(['element','laypage','form','layer','menu'],function(){
-      element = layui.element,laypage = layui.laypage,form = layui.form,layer = layui.layer,menu = layui.menu;
-      menu.init();
-    })
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script>
+  $('.menu.toggle').click(function () {
+    $('.m-item').toggleClass('m-mobile-hide');
+  });
+
+  $('.wechat').popup({
+    popup: $('.wechat-qr'),
+    position: 'bottom center'
+  });
+  $('.qq').popup();
+</script>
 </body>
 </html>
