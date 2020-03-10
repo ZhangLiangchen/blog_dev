@@ -3,11 +3,13 @@ package blog;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * 主配置类，项目启动入口
  */
 @MapperScan("blog.mapper.*")
+@ServletComponentScan("blog.servlet")
 @SpringBootApplication
 public class BlogDevApplication {
 

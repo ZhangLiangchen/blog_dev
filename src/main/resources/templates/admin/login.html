@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MyBlog后台登录</title>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/login.css"/>
+</head>
+<body>
+<div>
+    <div class="login">
+        <div class="login-top">
+            MyBlog登录
+        </div>
+        <form id="adminLoginForm">
+            <div class="login-center clearfix">
+                <div class="login-center-img">
+                    <img src="/image/user.png"/>
+                </div>
+                <div class="login-center-input">
+                    <input type="text" name="username" required placeholder="请输入用户名" autocomplete="off"/>
+                    <div class="login-center-input-text">用户名</div>
+                </div>
+            </div>
+            <div class="login-center clearfix">
+                <div class="login-center-img">
+                    <img src="/image/password.png"/>
+                </div>
+                <div class="login-center-input">
+                    <input type="password" name="password" required placeholder="请输入密码"/>
+                    <div class="login-center-input-text">密码</div>
+                </div>
+            </div>
+            <div class="login-center clearfix">
+                <div class="login-center-img">
+                    <img src="/image/verify.png"/>
+                </div>
+                <div class="login-center-input">
+                    <input type="text" name="vcode" placeholder="请输入验证码" autocomplete="off"/>
+                    <div class="login-center-input-text">验证码</div>
+                    <img src="/CheckCodeServlet" width="110" height="30" id="checkCodeImage" onclick="refreshCode()">
+                    <a onclick="refreshCode()"><label id="refreshLabel">看不清？换一张</label></a>
+                </div>
+            </div>
+            <div class="login-center">
+                <input class="adminLogin-button" id="loginButton" type="button" value="登录"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#loginButton").click(
+            function(){
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    url: "/admin/login" ,
+                    data: $('#adminLoginForm').serialize(),
+                    success: function (message) {
+                        if (message == "success") {
+                            window.location.href="/admin/blogs";
+                        }else if(message == "errorCode"){
+                            alert("验证码错误！");
+                        } else if(message == "errorPw"){
+                            alert("密码错误！");
+                        } else if(message == "noUser"){
+                            alert("用户不存在！");
+                        } else {
+                            alert("未知异常："+message);
+                        }
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+                });
+            }
+        );
+    });
+</script>
+<script>
+    function refreshCode() {
+        var img = document.getElementById("checkCodeImage");
+        img.src = img.src+'?r='+Math.random();
+    }
+</script>
+</body>
+</html>

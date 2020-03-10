@@ -36,10 +36,11 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs">
                 <a href="javascript:;">
-                    <img src="https://unsplash.it/100/100?image=1005" class="layui-nav-img"> 用户名
+                    <img src="https://unsplash.it/100/100?image=1005" class="layui-nav-img">
+                    [[${session.user.username}]]&nbsp;
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">退出登录</a></dd>
+                    <dd><a href="/admin/exit">退出登录</a></dd>
                 </dl>
             </li>
         </ul>

@@ -69,7 +69,7 @@
         <input type="hidden" name="id" th:value="${b.id}">
         <!--新增博客时创建时间为空，空字符串不能转换为日期，故不参与提交-->
         <input type="hidden" name="createTime" th:value="${b.createTime}" th:if="${not #strings.isEmpty(b.createTime)}">
-        <input type="hidden" name="userId" th:value="${b.userId}">
+        <input type="hidden" name="userId" th:value="${session.user.id}">
         <input type="hidden" name="views" th:value="${b.views}">
         <input type="hidden" name="flag" th:value="${b.flag}">
         <input type="hidden" name="recommend" th:value="${b.recommend}">

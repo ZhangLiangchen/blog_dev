@@ -1,5 +1,6 @@
 package blog.component;
 
+import blog.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +16,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return false;
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录：拦截并返回登录页面
+            response.sendRedirect("/admin/login");
+            return false;
+        } else {
+            //放行请求
+            return true;
+        }
     }
 
     @Override

@@ -1,6 +1,8 @@
 package blog.config;
 
+import blog.component.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -11,4 +13,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //注册拦截器，拦截/admin下除登录页面外的所有页面
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/login");
+    }
 }

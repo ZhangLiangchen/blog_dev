@@ -1,0 +1,35 @@
+html,body{ 
+	width:100%;
+	height:100%;
+    background-color: rgba(193, 193, 193, 0.16);
+}
+
+canvas{
+  display:block;
+  vertical-align:bottom;
+}
+
+.login{z-index: 2;position:absolute;width: 350px;border-radius: 5px;height: 500px;background: white;box-shadow: 0px 0px 5px #333333;top: 50%;left: 50%;margin-top: -250px;margin-left: -175px;}
+.login-admin a{float: right;text-decoration: underline;color: dimgrey;font-size: small;}
+.login-admin a:hover{color: lightseagreen;}
+.login-user a{float: right;text-decoration: underline;color: dimgrey;font-size: small;}
+.login-user a:hover{color: lightseagreen;}
+.login-top{font-size: 22px;margin-top: 80px;padding-left: 40px;box-sizing: border-box;color: #333333;margin-bottom: 50px;}
+.login-center{width: 100%;box-sizing: border-box;padding: 0 40px;margin-bottom: 30px;}
+.login-center-img{width: 20px;height: 20px;float: left;margin-top: 5px;}
+.login-center-img>img{width: 100%;}
+.login-center-input{float: left;width: 230px;margin-left: 15px;height: 30px;position: relative;}
+.login-center-input input{z-index: 2;padding-left: 10px;color: #333333;width: 100%;height: 30px;border-bottom: 1px solid #cccccc;border-top: 1px solid #ffffff;border-left: 1px solid #ffffff;border-right: 1px solid #ffffff;box-sizing: border-box;outline: none;position: relative;}
+.login-center-input input:focus{border: 1px solid dodgerblue;}
+.login-center-input-text{background: white;padding: 0 5px;position: absolute;z-index: 0;opacity: 0;height: 20px;top: 50%;margin-top: -10px;font-size: 14px;left: 5px;color: dodgerblue;line-height: 20px;}
+.login-center-input input:focus~.login-center-input-text{top: 0;z-index: 3;opacity: 1;margin-top: -15px;}
+.login.active{-webkit-animation: login-small 0.8s ; animation: login-small 0.8s ;animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards}
+.login-button{float:left;cursor: pointer;width:163px;text-align: center;height: 40px;line-height: 40px;background-color: dodgerblue;border:none;border-radius: 2px;outline:none;margin-top: 50px;margin-left:10px;color: white;}
+.register-button{float:right;cursor: pointer;width: 70px;text-align: center;height: 40px;line-height: 40px;background-color: #44B549;border:none;border-radius: 2px;outline:none;margin-top: 50px;margin-left: 6px;margin-right:10px;color: white;}
+.adminLogin-button{cursor: pointer;width:240px;text-align: center;height: 40px;line-height: 40px;background-color: dodgerblue;border:none;border-radius: 2px;outline:none;margin-top: 50px;margin-left:15px;color: white;}
+#checkCodeImage{padding-top:24px;}
+#refreshLabel{position:absolute;left: 130px;top: 52px;text-decoration: underline;color:dimgrey}
+#refreshLabel:hover{color: lightseagreen;}
+.login-button:active{opacity: 0.5}
+.register-button:active{opacity: 0.5}
+.adminLogin-button:active{opacity: 0.5}
