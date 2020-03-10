@@ -18,6 +18,7 @@ import java.util.List;
 public class Tag {
     private Long id;
     private String name;
+
     @TableField(exist = false)
     private List<Blog> blogs = new ArrayList<>();
 }

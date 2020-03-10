@@ -1,5 +1,6 @@
 package blog.service;
 
+import blog.dto.BlogTable;
 import blog.dto.DetailedBlog;
 import blog.dto.FirstPageBlog;
 import blog.dto.RecommendBlog;
@@ -16,4 +17,7 @@ public interface BlogService extends IService<Blog> {
     List<FirstPageBlog> getSearchBlog(String query);
 
     DetailedBlog getDetailedBlog(Long id);
+
+    List<BlogTable> getBlogTable();
+
 }

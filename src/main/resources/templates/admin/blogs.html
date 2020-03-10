@@ -17,27 +17,27 @@
     <form class="layui-form" style="margin-top: 60px">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="padding-bottom: 10px">
-                <input type="text" name="title" placeholder="标题" autocomplete="off" class="layui-input">
+                <input type="text" name="title" placeholder="输入标题" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline" style="padding-bottom: 10px">
                 <select name="type">
-                    <option value="">分类</option>
-                    <!--待填充-->
+                    <option value="">选择分类</option>
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
             </div>
             <div class="layui-input-inline layui-hide-xs">
-                <input type="text" name="date" id="dateSelector" placeholder="年月" autocomplete="off" class="layui-input">
+                <input type="text" name="date" id="dateSelector" placeholder="选择年月" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <button type="reset" class="layui-btn layui-bg-gray">清空</button>
                 <button class="layui-btn" lay-submit lay-filter="searchBlogForm"><i class="layui-icon layui-icon-search"></i></button>
             </div>
-            <a class="layui-btn layui-btn-danger" href="/admin/blog/input">发布新博客</a>
+            <a class="layui-btn layui-btn-danger" href="/admin/blog/input/0" style="margin-bottom: 20px">发布新博客</a>
         </div>
     </form>
 
     <!--博客列表-->
-    <table  class="layui-hide" id="blogsTable" lay-filter="blogsTable"></table>
+    <table  class="layui-hide" id="blogTable" lay-filter="blogTable"></table>
 
 </div>
 
@@ -46,6 +46,11 @@
 
 <!--script-->
 <script src="/layui/layui.js"></script>
+<!--渲染表格按钮-->
+<script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <script>
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
@@ -67,16 +72,36 @@
     layui.use('table', function(){
         var table = layui.table;
         table.render({
-            elem: '#blogsTable',
+            elem: '#blogTable',
             url: '/admin/blogs/list',
+            skin: 'line',
             page: true,
+            title: '博客信息表',
+            cellMinWidth: 90,   //定义全局单元格最小宽度
             cols: [[
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'},
-                {field: 'title', title: '标题', width:80, sort: true, fixed: 'left'},
-                {field: 'content', title: '内容', width:80, sort: true, fixed: 'left'}
+                {field: 'id', width: 55, align: 'center'},
+                {field: 'title', title: '博客标题', width: 340},
+                {field: 'typeName', title: '类型', align: 'center'},
+                {field: 'state', title: '状态', align: 'center', sort: 'true'},
+                {field: 'views', title: '阅读量', align: 'center', sort: 'true'},
+                {field: 'updateTime', title: '更新时间', align: 'center', sort: 'true', width: 190},
+                {fixed: 'right', title: '操作', toolbar: '#tableBar', align: 'center', minWidth: 120},
             ] ],
         });
+        //监听工具条
+        table.on('tool(blogTable)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'del'){
+                layer.confirm('确定删除这篇博客？', function(){
+                    window.location.href='/admin/blog/delete/'+data.id
+                });
+            } else if(obj.event === 'edit'){
+                window.location.href='/admin/blog/input/'+data.id
+            }
+        });
+
     });
+
 </script>
 </body>
 </html>
