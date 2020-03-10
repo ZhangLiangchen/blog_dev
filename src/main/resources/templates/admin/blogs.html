@@ -14,13 +14,13 @@
 <div class="layui-container">
 
     <!--查找工具条-->
-    <form class="layui-form" style="margin-top: 60px">
+    <form class="layui-form" style="margin-top: 60px" action="/admin/blogs/query" method="post">
         <div class="layui-form-item">
             <div class="layui-input-inline" style="padding-bottom: 10px">
                 <input type="text" name="title" placeholder="输入标题" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline" style="padding-bottom: 10px">
-                <select name="type">
+                <select name="typeId">
                     <option value="">选择分类</option>
                     <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
@@ -30,7 +30,7 @@
             </div>
             <div class="layui-input-inline">
                 <button type="reset" class="layui-btn layui-bg-gray">清空</button>
-                <button class="layui-btn" lay-submit lay-filter="searchBlogForm"><i class="layui-icon layui-icon-search"></i></button>
+                <button class="layui-btn" lay-submit><i class="layui-icon layui-icon-search"></i></button>
             </div>
             <a class="layui-btn layui-btn-danger" href="/admin/blog/input/0" style="margin-bottom: 20px">发布新博客</a>
         </div>
@@ -44,15 +44,16 @@
 <!--尾巴-->
 <footer th:insert="~{/admin/public :: footer}"></footer>
 
-<!--script-->
+<!--layui.js-->
 <script src="/layui/layui.js"></script>
 <!--渲染表格按钮-->
 <script type="text/html" id="tableBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+<!--layui模块渲染-->
 <script>
-    //layui导航依赖element模块，否则无法进行功能性操作
+    //导航栏依赖element模块
     layui.use('element', function(){
         var element = layui.element;
     });
@@ -71,9 +72,12 @@
     //数据表格
     layui.use('table', function(){
         var table = layui.table;
-        table.render({
+        var tableIns = table.render({
             elem: '#blogTable',
-            url: '/admin/blogs/list',
+            url: '/admin/blogs/list' +
+                '?title=[[${condition.title}]]' +
+                '&typeId=[[${condition.typeId}]]' +
+                '&date=[[${condition.date}]]',
             skin: 'line',
             page: true,
             title: '博客信息表',
@@ -99,9 +103,7 @@
                 window.location.href='/admin/blog/input/'+data.id
             }
         });
-
     });
-
 </script>
 </body>
 </html>

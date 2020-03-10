@@ -2,6 +2,7 @@ package blog.controller.admin;
 
 
 import blog.dto.BlogTable;
+import blog.dto.SearchBlog;
 import blog.entity.Blog;
 import blog.entity.Tag;
 import blog.entity.Type;
@@ -35,22 +36,31 @@ public class BlogController {
     private TagService tagService;
 
     /**
-     * 进入博客管理首页
+     * Get请求，进入博客管理首页
      */
     @GetMapping("/blogs")
-    public String manageBlog(Model model) {
+    public String manageBlog(Model model,SearchBlog searchBlog) {
         List<Type> types = typeService.list();
         model.addAttribute("types", types);
+        model.addAttribute("condition", searchBlog);
+        return "admin/blogs";
+    }
+
+    @PostMapping("blogs/query")
+    public String queryBlog(Model model,SearchBlog searchBlog) {
+        List<Type> types = typeService.list();
+        model.addAttribute("types", types);
+        model.addAttribute("condition", searchBlog);
         return "admin/blogs";
     }
 
     /**
-     * 接收ajax请求返回博客列表数据
+     * 博客列表组合条件查询，返回json数据
      */
     @ResponseBody
     @RequestMapping("/blogs/list")
-    public Map<String,Object> listBlog(Model model) {
-        List<BlogTable> blogs = blogService.getBlogTable();
+    public Map<String,Object> listBlog(SearchBlog searchBlog) {
+        List<BlogTable> blogs = blogService.getBlogTable(searchBlog);
         Map<String,Object> result = new HashMap<>(16);
         result.put("data", blogs);
         result.put("message", "");
@@ -86,9 +96,9 @@ public class BlogController {
     }
 
     /**
-     * 保存编辑的博客，包括新增和修改的博客
+     * Post请求，保存编辑的博客，包括新增和修改的博客
      */
-    @PostMapping("/blogs")
+    @PostMapping("/blog/save")
     public String saveBlog(Blog blog) {
         //如果是新增博客，设置创建时间和初始阅读量
         if (blog.getId() == null) {
