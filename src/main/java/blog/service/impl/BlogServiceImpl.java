@@ -93,4 +93,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     public List<FirstPageBlog> getByTypeId(Long typeId) {
         return blogMapper.getByTypeId(typeId);
     }
+
+    @Override
+    public List<FirstPageBlog> getByTagId(Long tagId) {
+        return blogMapper.getByTagId(tagId);
+    }
 }
