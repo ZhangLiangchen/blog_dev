@@ -39,7 +39,7 @@ public class CheckCodeServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  //内存图片对象(TYPE_INT_BGR 选择图片模式RGB模式)
+	    //内存图片对象(TYPE_INT_BGR 选择图片模式RGB模式)
         BufferedImage image = new BufferedImage(70,30,BufferedImage.TYPE_INT_RGB);
         //得到画笔
         Graphics graphics = image.getGraphics();
