@@ -23,4 +23,5 @@ public class Tag {
     @TableField(exist = false)
     private List<Blog> blogs = new ArrayList<>();
 
+
 }

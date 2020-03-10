@@ -28,6 +28,7 @@ public class TagController {
         PageHelper.startPage(pageNum, 4);
         List<Tag> allTag = tagService.list();
         PageInfo<Tag> pageInfo = new PageInfo<>(allTag);
+
         model.addAttribute("pageInfo", pageInfo);
         return "admin/tag";
     }

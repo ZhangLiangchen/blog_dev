@@ -15,6 +15,7 @@ public interface TagMapper extends BaseMapper<Tag> {
 
     int deleteTag(Long id);
 
+
     int updateTag(Tag tag);
 
     Tag getById(Long id);
