@@ -35,7 +35,7 @@ public class TagController {
     //去新增页面
     @GetMapping("/tag/input")
     public String toAdd() {
-        return "tag-input.html";
+        return "/admin/tag-input";
     }
 
     @PostMapping("/tag/add")
@@ -51,19 +51,19 @@ public class TagController {
         return "redirect:/admin/tag";
     }
 
-    @GetMapping("/tags/{id}/input")
+    @GetMapping("/tag/{id}/input")
     public String editInput(@PathVariable Long id,Model model) {
         model.addAttribute("tag", tagService.getById(id));
         return "admin/tag-update";
     }
 
-    @PostMapping("/tags/update")
+    @PostMapping("/tag/update")
     public String editPost(Tag tag) {
         tagService.updateTag(tag);
         return "redirect:/admin/tag";
     }
 
-    @GetMapping("/tags/{id}/delete")
+    @GetMapping("/tag/{id}/delete")
     public String delete(@PathVariable Long id) {
         tagService.deleteTag(id);
         return "redirect:/admin/tag";

@@ -8,17 +8,17 @@
 <body>
 <div th:replace="~{/admin/public :: nav}"></div>
 <div class="layui-container" >
-    <form action="" style="margin-top: 60px" >
+    <form id="myForm" class="layui-form" action="#" method="post" th:action="@{/admin/tag/add}" style="margin-top: 60px" >
         <div class="layui-form-item" >
             <label class="layui-form-label">名称</label>
             <div class="layui-input-block">
-                <input type="text" name="title" autocomplete="off" placeholder="请输入标签名称" class="layui-input">
+                <input type="text" name="name" autocomplete="off" placeholder="请输入标签名称" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                <button type="submit" class="layui-btn" onclick="formSubmit()" lay-filter="demo1">提交</button>
+                <button type="button" class="layui-btn layui-btn-primary" onclick="window.history.go(-1)">返回</button>
             </div>
         </div>
     </form>
@@ -32,7 +32,12 @@
         element.on({});
     });
     //表格模块
+    function formSubmit() {
+        // 提交表单
+        document.getElementById("myForm").submit();
+    }
+
 </script>
 </body>
-</body>
+
 </html>

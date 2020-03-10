@@ -16,9 +16,11 @@ import java.util.List;
 
 @TableName("t_tag")
 public class Tag {
+
     private Long id;
     private String name;
 
     @TableField(exist = false)
     private List<Blog> blogs = new ArrayList<>();
+
 }

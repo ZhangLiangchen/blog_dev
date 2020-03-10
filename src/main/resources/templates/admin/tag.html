@@ -12,7 +12,7 @@
 <table class="layui-table" lay-even="" lay-skin="row" style="margin-top: 60px" >
     <colgroup>
         <col width="10%">
-        <col width="15%">
+        <col width="20%">
         <col width="25%">
     </colgroup>
     <thead>
@@ -23,25 +23,30 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>贤心</td>
-        <td>1989-10-14</td>
-        <td><button   type="button" class="layui-btn layui-btn-sm">编辑</button>
-            <button    type="button" class="layui-btn layui-btn-sm layui-btn-normal">删除</button></td>
-    </tr>
-    <tr>
-
-        <th colspan="2" th:border="0">
-        <div id="demo5">
-        </div>
-        </th>
-        <th th:border="0">
-            <div >
-            <button  type="button" class="layui-btn layui-btn-primary layui-btn-sm" style="background-color: #33CC70;color: white">新增</button>
-            </div>
-        </th>
+    <tr th:each="tag,tagStat : ${pageInfo.list}">
+        <td th:text="${tagStat.index+1}">1</td>
+        <td th:text="${tag.name}">贤心</td>
+        <td><a href="#" th:href="@{/admin/tag/{id}/input(id=${tag.id})}" class="layui-btn layui-btn-sm">编辑</a>
+            <a href="#" th:href="@{/admin/tag/{id}/delete(id=${tag.id})}" class="layui-btn layui-btn-sm layui-btn-normal">删除</a></td>
     </tr>
     </tbody>
+    <tfoot>
+    <tr >
+        <td colspan="2" >
+                <a th:href="@{/admin/tag}" class="layui-btn layui-btn-primary layui-btn-sm">首页</a>
+                <a th:href="@{/admin/tag(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class="layui-btn layui-btn-sm" >上一页</a>
+                <a th:href="@{/admin/tag(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class="layui-btn layui-btn-sm">下一页</a>
+                <a th:href="@{/admin/tag(pageNum=${pageInfo.pages})}" class="layui-btn layui-btn-primary layui-btn-sm">尾页</a>
+                当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录
+
+        </td>
+        <td th:align="center" >
+
+            <a href="#" th:href="@{/admin/tag/input}" class="layui-btn layui-btn-primary layui-btn-sm" style="background-color: #33CC70;color: white">新增</a>
+
+        </td>
+    </tr>
+    </tfoot>
 </table>
 </div>
 <!--尾巴-->
@@ -53,80 +58,8 @@
         var element = layui.element;
         element.on({});
     });
-    //表格模块
-
-    //分页模块
-    layui.use(['laypage', 'layer'], function() {
-        var laypage = layui.laypage
-            , layer = layui.layer;
-        //开启HASH
-        laypage.render({
-            elem: 'demo5'
-            ,count: 500
-            ,curr: location.hash.replace('#!fenye=', '') //获取hash值为fenye的当前页
-            ,hash: 'fenye' //自定义hash值
-        });
 
 
-        //分页测试数据
-
-        var data = [
-            '北京',
-            '上海',
-            '广州',
-            '深圳',
-            '杭州',
-            '长沙',
-            '合肥',
-            '宁夏',
-            '成都',
-            '西安',
-            '南昌',
-            '上饶',
-            '沈阳',
-            '济南',
-            '厦门',
-            '福州',
-            '九江',
-            '宜春',
-            '赣州',
-            '宁波',
-            '绍兴',
-            '无锡',
-            '苏州',
-            '徐州',
-            '东莞',
-            '佛山',
-            '中山',
-            '成都',
-            '武汉',
-            '青岛',
-            '天津',
-            '重庆',
-            '南京',
-            '九江',
-            '香港',
-            '澳门',
-            '台北'
-        ];
-
-        //调用分页
-        laypage.render({
-            elem: 'demo20'
-            ,count: data.length
-            ,jump: function(obj){
-                //模拟渲染
-                document.getElementById('biuuu_city_list').innerHTML = function(){
-                    var arr = []
-                        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                    layui.each(thisData, function(index, item){
-                        arr.push('<li>'+ item +'</li>');
-                    });
-                    return arr.join('');
-                }();
-            }
-        });
-    });
 
 
 </script>

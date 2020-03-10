@@ -19,5 +19,7 @@ public interface TagService extends IService<Tag> {
 
     List<Tag> getTagByString(String text);
 
+    List<Tag> getAllTag();
+
 
 }
