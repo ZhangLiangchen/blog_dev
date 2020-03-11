@@ -19,7 +19,7 @@
     <resultMap id="tag" type="blog.entity.Tag">
         <id property="id" column="tid"/>
         <result property="name" column="name"/>
-        <collection property="blogs" ofType="blog.entity.Tag">
+        <collection property="blogs" ofType="blog.entity.Blog">
             <id property="id" column="bid"/>
             <result property="title" column="title"/>
         </collection>

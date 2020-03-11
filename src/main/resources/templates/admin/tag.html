@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <title>标签管理</title>
     <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
 <!--导航栏-->
 <div th:replace="~{/admin/public :: nav}"></div>
-<div class="layui-container">
+<div class="layui-container" margin-top="30px">
+    <div class="ui success message" th:unless="${#strings.isEmpty(message)}" >
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${message}">恭喜，操作成功！</p>
+    </div>
 <table class="layui-table" lay-even="" lay-skin="row" style="margin-top: 60px" >
     <colgroup>
         <col width="10%">
@@ -52,13 +59,21 @@
 <!--尾巴-->
 <footer th:insert="~{/admin/public :: footer}"></footer>
 <script src="/layui/layui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <script>
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
         element.on({});
     });
-
+    //消息关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
 
 
