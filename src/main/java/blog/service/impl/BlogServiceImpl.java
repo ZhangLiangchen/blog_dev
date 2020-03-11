@@ -12,18 +12,18 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements BlogService {
 
     @Autowired
     private BlogMapper blogMapper;
-    @Autowired
-    private TypeMapper typeMapper;
 
     @Override
     public List<FirstPageBlog> getAllFirstPageBlog() {
@@ -87,6 +87,24 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
             }
         }
         return blogs;
+    }
+
+    @Override
+    public void setBlogTag(Long blogId, String tagIds) {
+        //删除旧标签关联
+        blogMapper.deleteBlogTag(blogId);
+        //设置新关联数组
+        List<BlogAndTag> blogAndTags = new ArrayList<>();
+        String[] ids = tagIds.split(",");
+        //插入多对多中间表
+        for (String tagId : ids) {
+            blogMapper.setBlogTag(new BlogAndTag(blogId, Long.parseLong(tagId)));
+        }
+    }
+
+    @Override
+    public void removeBlogTag(Long blogId) {
+        blogMapper.deleteBlogTag(blogId);
     }
 
     @Override

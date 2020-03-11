@@ -1,6 +1,7 @@
 package blog.controller.admin;
 
 
+import blog.dto.BlogAndTag;
 import blog.dto.BlogTable;
 import blog.dto.SearchBlog;
 import blog.entity.Blog;
@@ -16,10 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 博客管理模块
@@ -104,6 +102,8 @@ public class BlogController {
         //更新修改时间
         blog.setUpdateTime(new Date());
         blogService.saveOrUpdate(blog);
+        //更新blog-tag多对多中间表
+        blogService.setBlogTag(blog.getId(), blog.getTagIds());
         return "redirect:/admin/blogs";
     }
 
@@ -113,6 +113,9 @@ public class BlogController {
     @GetMapping("/blog/delete/{id}")
     public String deleteBlog(@PathVariable(value = "id", required = false) Long id) {
         if (id != null) {
+            //去除中间表关联
+            blogService.removeBlogTag(id);
+            //删除博客
             blogService.removeById(id);
         }
         return "redirect:/admin/blogs";

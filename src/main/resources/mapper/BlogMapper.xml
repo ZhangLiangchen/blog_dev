@@ -264,4 +264,13 @@
         </where>
     </select>
 
+
+    <delete id="deleteBlogTag" parameterType="java.lang.Long">
+        delete from t_blog_tags where blog_id = #{blogId}
+    </delete>
+
+    <insert id="setBlogTag" parameterType="blog.dto.BlogAndTag">
+        insert into t_blog_tags(tag_id, blog_id)  values(#{tagId},#{blogId})
+    </insert>
+
 </mapper>

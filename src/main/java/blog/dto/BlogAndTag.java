@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BlogAndTag {
 
+    private Long blogId;
+
     private Long tagId;
 
-    private Long blogId;
 }

@@ -22,6 +22,9 @@ public interface BlogMapper extends BaseMapper<Blog> {
 
     List<BlogTable> getBlogTable(SearchBlog searchBlog);
 
+    void deleteBlogTag(Long blogId);
+
+    void setBlogTag(BlogAndTag blogTag);
 
     //根据TypeId获取博客列表，在分类页进行的操作
     List<FirstPageBlog> getByTypeId(Long typeId);
@@ -29,7 +32,6 @@ public interface BlogMapper extends BaseMapper<Blog> {
     List<FirstPageBlog> getByTagId(Long tagId);
 
 
-    ///////
     ShowBlog getBlogById(Long id);
 
     List<BlogQuery> getAllBlogQuery();
