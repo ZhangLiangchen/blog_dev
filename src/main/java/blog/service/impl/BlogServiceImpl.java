@@ -95,10 +95,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         blogMapper.deleteBlogTag(blogId);
         //设置新关联数组
         List<BlogAndTag> blogAndTags = new ArrayList<>();
-        String[] ids = tagIds.split(",");
-        //插入多对多中间表
-        for (String tagId : ids) {
-            blogMapper.setBlogTag(new BlogAndTag(blogId, Long.parseLong(tagId)));
+        if (tagIds != null && !"".equals(tagIds)) {
+            String[] ids = tagIds.split(",");
+            //循环插入多对多中间表
+            for (String tagId : ids) {
+                blogMapper.setBlogTag(new BlogAndTag(blogId, Long.parseLong(tagId)));
+            }
         }
     }
 

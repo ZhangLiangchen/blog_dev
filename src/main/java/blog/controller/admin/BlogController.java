@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -66,7 +67,7 @@ public class BlogController {
      * 进入编辑博客页面，传入id为0表示新增
      */
     @GetMapping("/blog/input/{id}")
-    public String editBlog(@PathVariable(value = "id", required = false) Long id, Model model) {
+    public String editBlog(@PathVariable Long id, Model model) {
         Blog blog = new Blog();
         if (id != 0) {
             blog = blogService.getById(id);
@@ -92,18 +93,22 @@ public class BlogController {
      * Post请求，保存编辑的博客，包括新增和修改的博客
      */
     @PostMapping("/blog/save")
-    public String saveBlog(Blog blog) {
+    public String saveBlog(Blog blog, RedirectAttributes attributes) {
         //如果是新增博客，设置创建时间和初始阅读量
         if (blog.getId() == null) {
             blog.setCreateTime(new Date());
             blog.setViews(0);
             blog.setFlag("原创");
+            attributes.addAttribute("msg","push");
+        }
+        //如果是修改博客，更新多对多中间表
+        else {
+            blogService.setBlogTag(blog.getId(), blog.getTagIds());
+            attributes.addAttribute("msg","edit");
         }
         //更新修改时间
         blog.setUpdateTime(new Date());
         blogService.saveOrUpdate(blog);
-        //更新blog-tag多对多中间表
-        blogService.setBlogTag(blog.getId(), blog.getTagIds());
         return "redirect:/admin/blogs";
     }
 
@@ -111,13 +116,13 @@ public class BlogController {
      * 删除博客
      */
     @GetMapping("/blog/delete/{id}")
-    public String deleteBlog(@PathVariable(value = "id", required = false) Long id) {
+    public String deleteBlog(@PathVariable Long id, RedirectAttributes attributes) {
         if (id != null) {
-            //去除中间表关联
+            //去除中间表关联，删除博客记录
             blogService.removeBlogTag(id);
-            //删除博客
             blogService.removeById(id);
         }
+        attributes.addAttribute("msg","del");
         return "redirect:/admin/blogs";
     }
 
