@@ -231,7 +231,7 @@
                b.views,
                b.update_time,
                b.description,
-               t.name,
+               t.name typeName,
                u.nickname,
                u.avatar
         from blog.t_blog b,
