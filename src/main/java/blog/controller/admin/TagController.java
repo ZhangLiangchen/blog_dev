@@ -46,6 +46,14 @@ public class TagController {
         System.out.println("前端传过来的表单" + tag);
 
         System.out.println(tag.getName());
+        String name=tag.getName();
+        int a=1;
+        int i=0;
+        if(name.length()<=0)
+        {
+            attributes.addFlashAttribute("message","标签不能为空！");
+            return "redirect:/admin/tag/input";
+        }
 
         Tag tag1 = tagService.getByName(tag.getName());
         if (tag1 != null) {
@@ -86,10 +94,16 @@ public class TagController {
     @PostMapping("/tag/update")
     public String editPost(Tag tag,RedirectAttributes attributes) {
 
+        String name=tag.getName();
+        if(name.length()<=0)
+        {
+            attributes.addFlashAttribute("message","标签不能为空！");
+            return "redirect:/admin/tag/input";
+        }
         Tag tag1 = tagService.getByName(tag.getName());
         if (tag1 != null) {
             //不为空说明数据库已有
-            attributes.addFlashAttribute("message", "已有这个标签，不能重复添加");
+            attributes.addFlashAttribute("message", "已有这个标签，不能重复添加！");
             return "redirect:/admin/tag/input";
         }
         int t=tagService.updateTag(tag);

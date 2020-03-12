@@ -34,7 +34,7 @@
 <script src="/layui/layui.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<script type="text/javascript">
+<script >
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
@@ -43,14 +43,6 @@
     //表格模块
     function formSubmit() {
         // 提交表单
-        var myform = document.getElementById("myForm");
-        for(var i=0;i<myform.length;i++){               //循环form表单
-            if((myform.elements[i].value==""){          //判断每一个元素是否为空
-                alert("标签不能为空哦 ^-^");
-                myform.elements[i].focus();             //元素获得焦点
-                return false;
-            }
-        }
 
         document.getElementById("myForm").submit();
     }
