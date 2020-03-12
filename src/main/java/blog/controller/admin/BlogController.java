@@ -1,7 +1,6 @@
 package blog.controller.admin;
 
 
-import blog.dto.BlogAndTag;
 import blog.dto.BlogTable;
 import blog.dto.SearchBlog;
 import blog.entity.Blog;
@@ -37,7 +36,7 @@ public class BlogController {
     private TagService tagService;
 
     /**
-     * 进入博客管理首页，若为查询操作，向页面传递查询条件
+     * 进入博客管理首页，并向页面传递查询条件
      */
     @RequestMapping("/blogs")
     public String manageBlog(Model model,SearchBlog searchBlog) {
@@ -58,8 +57,8 @@ public class BlogController {
         Map<String,Object> result = new HashMap<>(16);
         result.put("count", pageInfo.getTotal());
         result.put("data", blogs);
-        result.put("message", "");
         result.put("code", 0);
+        result.put("message", "");
         return result;
     }
 
@@ -72,8 +71,8 @@ public class BlogController {
         if (id != 0) {
             blog = blogService.getById(id);
         }
-        List<Type> types = typeService.list();
         model.addAttribute("b", blog);
+        List<Type> types = typeService.list();
         model.addAttribute("types", types);
         return "admin/blog-input";
     }
@@ -125,6 +124,5 @@ public class BlogController {
         attributes.addAttribute("msg","del");
         return "redirect:/admin/blogs";
     }
-
 
 }

@@ -248,6 +248,7 @@
     </select>
 
     <!--By xh-->
+    <!--组合条件查询，获取博客管理表格所需的数据-->
     <select id="getBlogTable" parameterType="blog.dto.SearchBlog" resultType="blog.dto.BlogTable">
         select b.id,title,update_time,published,t.name typename,views
         from t_blog b join t_type t on b.type_id = t.id
@@ -264,11 +265,12 @@
         </where>
     </select>
 
-
+    <!--解除指定id博客的中间表关联-->
     <delete id="deleteBlogTag" parameterType="java.lang.Long">
         delete from t_blog_tags where blog_id = #{blogId}
     </delete>
 
+    <!--设定博客中间表-->
     <insert id="setBlogTag" parameterType="blog.dto.BlogAndTag">
         insert into t_blog_tags(tag_id, blog_id)  values(#{tagId},#{blogId})
     </insert>
