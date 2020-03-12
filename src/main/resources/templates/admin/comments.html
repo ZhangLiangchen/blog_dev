@@ -9,7 +9,7 @@
 <body>
 <!--导航栏-->
 <div th:replace="~{/admin/public :: nav}"></div>
-
+<br><br><br><br>
 <!--评论管理-->
 <div class="layui-container">
 
@@ -57,7 +57,7 @@
             limit: 7,
             cellMinWidth: 90,   //定义全局单元格最小宽度
             cols: [[
-                {field: 'id', title: '编号',width: 55, align: 'center'},
+                {field: 'id', title: '编号',width: 60, align: 'center'},
                 {field: 'nickname', title: '用户名', align: 'center'},
                 {field: 'email', title: '用户邮箱', width: 120, align: 'center'},
                 {field: 'content', title: '留言内容', width: 250, align: 'center'},
