@@ -11,8 +11,6 @@
     <link href="../static/css/animate.css" rel="stylesheet">
     <!--代码高亮-->
     <link href="../static/lib/prism/prism.css" rel="stylesheet">
-    <!--自动生成目录-->
-    <link href="../static/lib/tocbot/tocbot.css" rel="stylesheet">
     <link href="../static/css/me.css" rel="stylesheet">
 </head>
 <body>
@@ -115,64 +113,126 @@
             </div>
         </div>
 
-        <!--留言信息-->
-        <div class="ui attached bottom segment" th:if="${blog.commentabled}">
-            <div class="ui teal segment" id="comment-container">
+        <div  class="ui bottom attached segment" th:if="${blog.commentabled}">
+            <!--留言区域列表-->
+            <div id="comment-container"  class="ui teal segment">
                 <div th:fragment="commentList">
                     <div class="ui threaded comments" style="max-width: 100%;">
-                        <h3 class="ui dividing header">留言评论</h3>
+                        <h3 class="ui dividing header">评论</h3>
                         <div class="comment" th:each="comment : ${comments}">
                             <div class="content">
-                                <a class="author">
+                                <a class="author" >
                                     <span th:text="${comment.nickname}">Matt</span>
-                                    <!--<div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">博主</div>-->
                                 </a>
                                 <div class="metadata">
-                                    <span class="date"
-                                          th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                    <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                 </div>
                                 <div class="text" th:text="${comment.content}">
                                     How artistic!
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)"
-                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}">
-                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;回复
-                                    </a>
+                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"
+                                       onclick="reply(this)">回复</a>
+                                </div>
+                            </div>
+                            <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+                                <div class="comment" th:each="reply : ${comment.replyComments}">
+                                    <div class="content">
+                                        <a class="author" >
+                                            <span th:text="${reply.nickname}">小红</span>
+                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@ 小白</span>
+                                        </a>
+                                        <div class="metadata">
+                                            <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                        </div>
+                                        <div class="text" th:text="${reply.content}">
+                                            How artistic!
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                               th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}" onclick="reply(this)">回复</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!--/*-->
+                        <div class="comment">
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--*/-->
+
                     </div>
                 </div>
             </div>
-            <form action="#" class="ui form" id="blog-form" method="post" th:action="@{/comments}">
-                <div class="ui form" id="comment-form">
-                    <input name="blogId" th:value="${blog.id}" type="hidden">
-                    <input name="parentComment.id" type="hidden" value="-1">
-                    <div class="field">
-                        <textarea name="content" placeholder="请输入评论信息..."></textarea>
+
+            <div id="comment-form" class="ui form">
+                <input type="hidden" name="blog.id" th:value="${blog.id}">
+                <input type="hidden" name="parentComment.id" value="-1">
+                <div class="field">
+                    <textarea name="content" placeholder="请输入评论信息..."></textarea>
+                </div>
+                <div class="fields">
+                    <div class="field m-mobile-wide m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}">
+                        </div>
                     </div>
-                    <div class="fields">
-                        <div class="field m-mobile-wide m-margin-bottom-small">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input name="nickname" placeholder="姓名" type="text">
-                            </div>
+                    <div class="field m-mobile-wide m-margin-bottom-small">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
                         </div>
-                        <div class="field m-mobile-wide m-margin-bottom-small">
-                            <div class="ui left icon input">
-                                <i class="mail icon"></i>
-                                <input name="email" placeholder="邮箱" type="text">
-                            </div>
-                        </div>
-                        <div class="field  m-margin-bottom-small m-mobile-wide">
-                            <button class="ui teal button m-mobile-wide" id="commentpost-btn" type="submit"><i
-                                    class="edit icon"></i>发布
-                            </button>
-                        </div>
+                    </div>
+                    <div class="field  m-margin-bottom-small m-mobile-wide">
+                        <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
                     </div>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
 </div>
@@ -208,22 +268,14 @@
         on: 'click',
         position: 'bottom center'
     });
-
-    tocbot.init({
-        // Where to render the table of contents.
-        tocSelector: '.js-toc',
-        // Where to grab the headings to build the table of contents.
-        contentSelector: '.js-toc-content',
-        // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3',
-    });
-
-    $('.toc.button').popup({
-        popup: $(".toc-container.popup"),
-        on: 'click',
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
         position: 'left center'
     });
 
+    $('#toTop-button').click(function () {
+        $(window).scrollTo(0,500);
+    });
 
     //评论表单验证
     $('.ui.form').form({
@@ -253,20 +305,27 @@
         }
     });
 
-    $(function () {
-        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
-    });
-
-    //校验
     $('#commentpost-btn').click(function () {
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
+            postData();
         } else {
             console.log('校验失败');
         }
     });
 
+    function postData() {
+        $("#comment-container").load(/*[[@{/comments}]]*/"",{
+            "parentComment.id" : $("[name='parentComment.id']").val(),
+            "blog.id" : $("[name='blog.id']").val(),
+            "nickname": $("[name='nickname']").val(),
+            "email"   : $("[name='email']").val(),
+            "content" : $("[name='content']").val()
+        },function (responseTxt, statusTxt, xhr) {
+            clearContent();
+        });
+    }
 
     function clearContent() {
         $("[name='content']").val('');
@@ -274,9 +333,14 @@
         $("[name='content']").attr("placeholder", "请输入评论信息...");
     }
 
+    function reply(obj) {
+        var commentId = $(obj).data('commentid');
+        var commentNickname = $(obj).data('commentnickname');
+        $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+        $("[name='parentComment.id']").val(commentId);
+        $(window).scrollTo($('#comment-form'),500);
+    }
 
 </script>
-
-
 </body>
 </html>
