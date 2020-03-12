@@ -24,4 +24,5 @@ public interface TagMapper extends BaseMapper<Tag> {
 
     List<Tag> getAllTag();
 
+
 }

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>标签新增</title>
     <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
 <div th:replace="~{/admin/public :: nav}"></div>
@@ -15,6 +17,11 @@
                 <input type="text" name="name" autocomplete="off" placeholder="请输入标签名称" class="layui-input">
             </div>
         </div>
+        <div class="ui negative message" th:unless="${#strings.isEmpty(message)}" >
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">操作失败</p>
+        </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn" onclick="formSubmit()" lay-filter="demo1">提交</button>
@@ -25,7 +32,9 @@
 </div>
 <footer th:insert="~{/admin/public :: footer}"></footer>
 <script src="/layui/layui.js"></script>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script type="text/javascript">
     //layui导航依赖element模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
@@ -34,8 +43,25 @@
     //表格模块
     function formSubmit() {
         // 提交表单
+        var myform = document.getElementById("myForm");
+        for(var i=0;i<myform.length;i++){               //循环form表单
+            if((myform.elements[i].value==""){          //判断每一个元素是否为空
+                alert("标签不能为空哦 ^-^");
+                myform.elements[i].focus();             //元素获得焦点
+                return false;
+            }
+        }
+
         document.getElementById("myForm").submit();
     }
+
+    //消息关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
 
 </script>
