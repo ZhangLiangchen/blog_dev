@@ -63,8 +63,11 @@
                                 parent.location.reload();
                             });
                         }
-                        else {
-                            alert("未知异常！");
+                        else  if (message == "false"){
+                            layer.msg("分类名称不能为空",{icon:5});
+                        }
+                        else  if (message == "Exist"){
+                            layer.msg("该名称已存在",{icon:2});
                         }
                     },
                     error : function() {

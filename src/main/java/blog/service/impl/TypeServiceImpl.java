@@ -22,4 +22,8 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     public void deleteById(Long id) {
         typeMapper.deleteById(id);
     }
+
+    public boolean isExistByTypeName(String name){
+       return typeMapper.isExistByTypeName(name);
+    }
 }

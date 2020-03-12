@@ -14,4 +14,6 @@ public interface TypeMapper extends BaseMapper<Type> {
     List<Type> queryBlogById(Long id);
 
     void deleteById(Long id);
+
+    boolean isExistByTypeName(String name);
 }

@@ -10,4 +10,6 @@ public interface TypeService extends IService<Type> {
     List<Type> queryBlogById(Long id);
 
     void deleteById(Long id);
+
+    boolean isExistByTypeName(String name);
 }

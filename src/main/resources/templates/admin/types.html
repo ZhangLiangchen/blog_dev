@@ -61,7 +61,7 @@
                     var index=layer.open({
                         type: 2,
                         title: "修改分类名称",
-                        area: ['26%', '23%'],
+                        area: '390px',
                         fix: false,
                         maxmin: true,
                         shadeClose: true,
@@ -107,17 +107,14 @@
                     var index2=layer.open({
                         type: 2,
                         title: "添加新的分类",
-                        area: ['30%', '28%'],
+                        area: '390px',
                         fix: false,
                         maxmin: true,
                         shadeClose: true,
                         shade: 0.4,
                         skin: 'layui-layer-molv',
                         content: ["/admin/typeUpdateAndAddUI", "no"],
-                        end: function() {
-                            //刷新页面,
-                            location.reload();
-                        },
+
 
                     });
                     break;

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -59,11 +60,21 @@ public class TypeController {
     }
 
     @GetMapping("/typeUpdate")
-    public String updateType(Type type){
-        typeService.updateById(type);
-
-        return "success";
+    public String updateType(Type type) {
+        String name = type.getName();
+        if (name.length() <= 0) {
+            return "false";
+        }
+        boolean mes = typeService.isExistByTypeName(name);
+        System.out.println(mes);
+        if (mes == true) {
+            return "Exist";
+        } else {
+            typeService.updateById(type);
+            return "success";
+        }
     }
+
 
     @GetMapping("/typeUpdateAndAddUI")
     public ModelAndView updateUI(HttpServletRequest request, @RequestParam(required = false,value = "id")Long  id) {
@@ -88,6 +99,14 @@ public class TypeController {
 
     @GetMapping("/addType")
     public String add(HttpServletResponse response,Type type){
+        String typ=type.getName();
+        if(typ.length()<=0){
+            return "false";
+        }
+        boolean mes=typeService.isExistByTypeName(typ);
+        if(mes==true){
+            return "Exist";
+        }
         //保证所有的分类id都是递增+1的
         List<Type> list=typeService.list();
         int id1=list.size();
