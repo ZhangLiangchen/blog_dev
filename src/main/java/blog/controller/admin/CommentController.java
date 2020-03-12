@@ -3,15 +3,14 @@ package blog.controller.admin;
 import blog.dto.BlogTable;
 import blog.dto.SearchBlog;
 import blog.entity.Comment;
+import blog.entity.Tag;
 import blog.service.BlogService;
 import blog.service.CommentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
@@ -28,8 +27,9 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping("/comments/list")
-    public Map<String,Object> listComments( Integer page, Integer limit) {
-        PageHelper.startPage(page, limit);
+    public Map<String,Object> listComments(@RequestParam(required = false,defaultValue = "1",value = "page")Integer page,
+                                           @RequestParam(required = false,defaultValue = "10",value = "limit")Integer limit){
+        PageHelper.startPage(page,limit);
 //        List<BlogTable> blogs = blogService.getBlogTable(searchBlog);
 //        PageInfo<BlogTable> pageInfo = new PageInfo<>(blogs, limit);
         List<Comment> comments = commentService.list();
@@ -42,8 +42,18 @@ public class CommentController {
         return result;
     }
 
+//    @GetMapping("/comments")
+//    public String list(Model model, @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
+//        PageHelper.startPage(pageNum, 10);
+//        List<Comment> comments = commentService.list();
+//        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
+//        model.addAttribute("pageInfo", pageInfo);
+//        return "admin/comments";
+//    }
+
+
     @GetMapping("/comments/delete/{id}")
-    public String deleteBlog(@PathVariable Long id, RedirectAttributes attributes) {
+    public String deleteComments(@PathVariable Long id, RedirectAttributes attributes) {
         if (id != null) {
             //去除中间表关联，删除博客记录
             commentService.removeById(id);
@@ -51,4 +61,10 @@ public class CommentController {
         attributes.addAttribute("msg","del");
         return "redirect:/admin/comments";
     }
+
+    @RequestMapping("/comments" )
+    public String comments( ) {
+        return "admin/comments";
+    }
+
 }

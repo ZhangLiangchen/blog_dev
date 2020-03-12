@@ -43,7 +43,7 @@
         var layer = layui.layer;
         var msg = getUrlParam("msg");
         if(msg=="del") {
-            layer.msg("删除博客成功！", {icon: 1});
+            layer.msg("删除评论成功！", {icon: 1});
         }
     })
 
@@ -61,10 +61,7 @@
                 {field: 'nickname', title: '用户名', align: 'center'},
                 {field: 'email', title: '用户邮箱', width: 120, align: 'center'},
                 {field: 'content', title: '留言内容', width: 250, align: 'center'},
-                {field: 'createTime', title: '留言时间',  width: 190, align: 'center', sort: 'true',
-                    templet: function (d) {//自定义处理显示的值
-                        return ConvertDate (table.createTime);
-                    }},
+                {field: 'createTime', title: '留言时间',  width: 190, align: 'center', sort: 'true'},
                 {fixed: 'right', title: '操作', toolbar: '#tableBar', align: 'center'},
             ] ],
         });
@@ -72,8 +69,8 @@
         table.on('tool(commentTable)', function(obj){
             var data = obj.data;
             if(obj.event == 'del'){
-                layer.confirm('确定删除这篇博客？', function(){
-                    window.location.href='/admin/blog/delete/'+data.id
+                layer.confirm('确定删除这条评论吗？', function(){
+                    window.location.href='/admin/comments/delete/'+data.id
                 });
             }
         });
