@@ -22,14 +22,19 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 </script>
-<table class="layui-hide" id="test" lay-skin="line" lay-filter="test"> </table>
+    <div class="layui-container" >
+            <table id="test" lay-skin="line" lay-filter="test">
+
+            </table>
+    </div>
+
 <script  th:inline="none">
     layui.use(['table','laypage'], function(){
         var table = layui.table
 
         table.render({
             toolbar: '#toolbarDemo'
-
+            ,skin: 'line'
             ,elem: '#test'
             ,url:'/admin/typeList'
             ,limit:10
@@ -62,6 +67,7 @@
                         type: 2,
                         title: "修改分类名称",
                         area: '390px',
+                        skin: 'line',
                         fix: false,
                         maxmin: true,
                         shadeClose: true,
