@@ -6,5 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //博客评论
 @Controller
-public class CommentController {
+public class CommentShowController {
+
+
 }
