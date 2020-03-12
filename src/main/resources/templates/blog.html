@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>详情页</title>
+    <title>博客详情</title>
     <link href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
     <!--文章的排版-->
     <link href="../static/css/typo.css" rel="stylesheet">
@@ -113,44 +113,15 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
-        <!--博客信息-->
-        <div class="ui positive attached purple message" th:if="${blog.shareStatement}">
-            <!--grid进行左右布局-->
-            <div class="ui middle aligned grid">
-                <!--左边11份-->
-                <div class="eleven wide column">
-                    <li>作者：<span th:text="${blog.nickname}">李仁密</span><a href="#" target="_blank" th:href="@{/about}">（联系作者）</a>
-                    </li>
-                    <li>发表时间：<span
-                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2017-10-02 09:08</span></li>
-                    <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
-                    <li>公众号转载：请在文末添加作者公众号二维码</li>
-                </div>
-                <!--右边5份-->
-                <div class="five wide column">
-                    <!-- right floated 往右浮动-->
-                    <img class="ui bordered rounded image right floated" src="../static/image/微信名片.png"
-                         style="width: 110px" th:src="@{/image/微信名片.png}">
-                </div>
-            </div>
-        </div>
-
 
         <!--留言信息-->
         <div class="ui attached bottom segment" th:if="${blog.commentabled}">
             <div class="ui teal segment" id="comment-container">
                 <div th:fragment="commentList">
                     <div class="ui threaded comments" style="max-width: 100%;">
-                        <h3 class="ui dividing header">评论</h3>
+                        <h3 class="ui dividing header">留言评论</h3>
                         <div class="comment" th:each="comment : ${comments}">
-                            <a class="avatar">
-                                <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.avatar}}">
-                            </a>
                             <div class="content">
                                 <a class="author">
                                     <span th:text="${comment.nickname}">Matt</span>
@@ -164,14 +135,13 @@
                                     How artistic!
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-commentnickname="Matt"
-                                       onclick="reply(this)"
-                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}">回复</a>
+                                    <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)"
+                                       th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;回复
+                                    </a>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -201,71 +171,26 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
             </form>
-
         </div>
-
-
     </div>
-
 </div>
 
 <!--右下角浮动的图标-->
-<div class="m-padded m-right-bottom m-fixed">
-    <div class="ui vertical icon buttons">
-        <button class="ui purple toc button" type="button">目录</button>
-        <a class="ui purple button" href="#comment-container">留言</a>
-        <a class="ui purple icon button" href="#"><i class="chevron up icon"></i> </a>
+    <div class="m-padded m-right-bottom m-fixed">
+        <div class="ui vertical icon buttons">
+            <a class="ui purple button" href="#comment-container">留言</a>
+            <a class="ui purple icon button" href="#">
+                <i class="chevron up icon"></i>
+            </a>
+        </div>
     </div>
 </div>
-<!--目录-->
-<div class="ui toc-container flowing popup transition hidden" style="width: 250px">
-    <ol class="js-toc">
-
-    </ol>
-</div>
-
-</div>
-
 <br>
 <br>
 <!--底部footer-->
-<footer class="ui inverted vertical segment m-padded-tb-massive" th:replace="_fragments :: footer">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <img alt="" class="ui rounded image" src="../static/image/1.jpg" style="width: 110px">
-                    </div>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a class="item m-text-thin" href="#">用户故事（User Story）</a>
-                    <a class="item m-text-thin" href="#">用户故事（User Story）</a>
-                    <a class="item m-text-thin" href="#">用户故事（User Story）</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
-                <div class="ui inverted link list">
-                    <a class="item m-text-thin" href="#">QQ：1437810640</a>
-                </div>
-            </div>
-            <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 </p>
-    </div>
-
-</footer>
+<footer class="ui inverted vertical segment m-padded-tb-massive" th:replace="_fragments :: footer"/>
 
 <th:block th:replace="_fragments :: script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>

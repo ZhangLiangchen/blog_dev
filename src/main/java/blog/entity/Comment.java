@@ -24,9 +24,6 @@ public class Comment {
     private String nickname;
     private String email;
     private String content;
-
-    //头像
-    private String avatar;
     private Date createTime;
 
     private Long blogId;

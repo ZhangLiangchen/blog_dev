@@ -5,8 +5,8 @@
 <mapper namespace="blog.mapper.CommentMapper">
 
     <insert id="saveComment" parameterType="blog.entity.Comment">
-        insert into blog.t_comment (nickname, email, content, avatar, create_time, blog_id, parent_comment_id)
-        values (#{nickname}, #{email}, #{content}, #{avatar}, #{createTime}, #{blogId}, #{parentCommentId});
+        insert into blog.t_comment (nickname, email, content, create_time, blog_id, parent_comment_id)
+        values (#{nickname}, #{email}, #{content}, #{createTime}, #{blogId}, #{parentCommentId});
     </insert>
 
 
@@ -15,7 +15,6 @@
                c.nickname,
                c.email,
                c.content,
-               c.avatar,
                c.create_time,
                c.blog_id,
                c.parent_comment_id
@@ -30,7 +29,6 @@
                c.nickname,
                c.email,
                c.content,
-               c.avatar,
                c.create_time,
                c.blog_id,
                c.parent_comment_id
