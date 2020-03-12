@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>评论管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+</head>
+<body>
+<!--导航栏-->
+<div th:replace="~{/admin/public :: nav}"></div>
+
+<!--评论管理-->
+<div class="layui-container">
+
+    <!--评论列表-->
+    <table  class="layui-hide" id="commentTable" lay-filter="commentTable"></table>
+
+</div>
+
+<!--尾巴-->
+<footer th:insert="~{/admin/public :: footer}"></footer>
+
+<!--layui.js-->
+<script src="/layui/layui.js"></script>
+<!--渲染表格按钮-->
+<script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<!--layui模块渲染-->
+<script>
+    //导航栏依赖element模块
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    //提示弹出层
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return encodeURI(r[2]); return null; //返回参数值
+    }
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        var msg = getUrlParam("msg");
+        if(msg=="del") {
+            layer.msg("删除博客成功！", {icon: 1});
+        }
+    })
+
+    //数据表格
+    layui.use('table', function(){
+        var table = layui.table;
+        var tableIns = table.render({
+            elem: '#commentTable',
+            url: '/admin/comments/list',
+            page: true,
+            limit: 7,
+            cellMinWidth: 90,   //定义全局单元格最小宽度
+            cols: [[
+                {field: 'id', title: '编号',width: 55, align: 'center'},
+                {field: 'nickname', title: '用户名', align: 'center'},
+                {field: 'email', title: '用户邮箱', width: 120, align: 'center'},
+                {field: 'content', title: '留言内容', width: 250, align: 'center'},
+                {field: 'createTime', title: '留言时间',  width: 190, align: 'center', sort: 'true',
+                    templet: function (d) {//自定义处理显示的值
+                        return ConvertDate (table.createTime);
+                    }},
+                {fixed: 'right', title: '操作', toolbar: '#tableBar', align: 'center'},
+            ] ],
+        });
+        //监听工具条
+        table.on('tool(commentTable)', function(obj){
+            var data = obj.data;
+            if(obj.event == 'del'){
+                layer.confirm('确定删除这篇博客？', function(){
+                    window.location.href='/admin/blog/delete/'+data.id
+                });
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

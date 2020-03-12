@@ -1,6 +1,9 @@
 package blog.entity;
 
 import blog.dto.DetailedBlog;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @TableName("t_comment")
 public class Comment {
+    @TableId(type = IdType.AUTO)
     private Long id;
     private String nickname;
     private String email;
@@ -30,9 +34,13 @@ public class Comment {
     private String parentNickname;
 
     //回复评论
+    @TableField(exist = false)
     private List<Comment> replyComments = new ArrayList<>();
+
+    @TableField(exist = false)
     private Comment parentComment;
 
+    @TableField(exist = false)
     private DetailedBlog blog;
 
 
