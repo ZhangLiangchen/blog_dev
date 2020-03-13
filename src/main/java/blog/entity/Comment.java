@@ -28,6 +28,7 @@ public class Comment {
 
     private Long blogId;
     private Long parentCommentId;
+    private String parentNickname;
 
     //回复评论
     @TableField(exist = false)

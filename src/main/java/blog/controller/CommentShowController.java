@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 //博客评论
 @Controller
@@ -22,22 +23,21 @@ public class CommentShowController {
 
     @GetMapping("/comments/{blogId}")
     public String comments(@PathVariable Long blogId, Model model) {
-        model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
-        return "blog :: commentList";
+        List<Comment> comments = commentService.listCommentByBlogId(blogId);
+        model.addAttribute("comments", comments);
+        model.addAttribute("blog", blogService.getDetailedBlog(blogId));
+        return "blog";
     }
 
     @PostMapping("/comments")
     public String post(Comment comment) {
-        Long blogId = comment.getBlog().getId();
+        Long blogId = comment.getBlogId();
+        //set Blog
         comment.setBlog(blogService.getDetailedBlog(blogId));
+        if (comment.getParentComment().getId() != null) {
+            comment.setParentCommentId(comment.getParentComment().getId());
+        }
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }
-//    @PostMapping("/comments")
-//    public String post(Comment comment) {
-//        Long blogId = comment.getBlog().getId();
-//        comment.setBlog(blogService.getBlog(blogId));
-//        commentService.saveComment(comment);
-//        return "redirect:/comments/" + blogId;
-//    }
 }

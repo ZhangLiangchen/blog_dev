@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +20,10 @@ import java.util.List;
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
+
     @Autowired
     private BlogMapper blogMapper;
+
     //存放迭代找出的所有子代的集合
     private List<Comment> tempReplys = new ArrayList<>();
 
@@ -31,6 +34,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return eachComment(comments);
     }
 
+    @Transactional
     @Override
     //接收回复的表单
     public int saveComment(Comment comment) {
@@ -40,7 +44,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         //没有父级评论默认是-1
         if (parentCommentId != -1) {
             //有父级评论
-            comment.setParentComment(commentMapper.findByParentCommentId(comment.getParentCommentId()));
+            comment.setParentComment(commentMapper.findByParentCommentId(parentCommentId));
         } else {
             comment.setParentComment(null);
         }
