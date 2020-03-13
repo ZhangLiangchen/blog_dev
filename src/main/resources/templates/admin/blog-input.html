@@ -48,7 +48,7 @@
                     <label class="layui-form-label">标签</label>
                     <div class="layui-input-block">
                         <input type="text" id="tags-input" name="tagIds" class="layui-input" th:value="${b.tagIds}"
-                               placeholder="点击选择标签" onclick="tagsSelector();" autocomplete="off">
+                               placeholder="点击选择标签" lay-verify="required" onclick="tagsSelector();" autocomplete="off">
                     </div>
                 </div>
                 <div class="layui-col-md6 layui-col-xs12">

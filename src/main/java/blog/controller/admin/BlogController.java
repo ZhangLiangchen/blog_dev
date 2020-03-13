@@ -93,21 +93,23 @@ public class BlogController {
      */
     @PostMapping("/blog/save")
     public String saveBlog(Blog blog, RedirectAttributes attributes) {
-        //如果是新增博客，设置创建时间和初始阅读量
+        //如果是新增博客，设置创建时间和一些默认值
         if (blog.getId() == null) {
-            blog.setCreateTime(new Date());
             blog.setViews(0);
             blog.setFlag("原创");
+            blog.setCommentabled(true);
+            blog.setRecommend(true);
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blogService.addBlog(blog);
             attributes.addAttribute("msg","push");
         }
-        //如果是修改博客，更新多对多中间表
         else {
-            blogService.setBlogTag(blog.getId(), blog.getTagIds());
+            blog.setUpdateTime(new Date());
+            blogService.updateById(blog);
             attributes.addAttribute("msg","edit");
         }
-        //更新修改时间
-        blog.setUpdateTime(new Date());
-        blogService.saveOrUpdate(blog);
+        blogService.setBlogTag(blog.getId(), blog.getTagIds());
         return "redirect:/admin/blogs";
     }
 

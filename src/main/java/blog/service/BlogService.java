@@ -17,6 +17,8 @@ public interface BlogService extends IService<Blog> {
 
     List<BlogTable> getBlogTable(SearchBlog searchBlog);
 
+    Long addBlog(Blog blog);
+
     void removeBlogTag(Long blogId);
 
     void setBlogTag(Long blogId, String tagIds);
@@ -25,4 +27,5 @@ public interface BlogService extends IService<Blog> {
     List<FirstPageBlog> getByTypeId(Long typeId);
 
     List<FirstPageBlog> getByTagId(Long tagId);
+
 }

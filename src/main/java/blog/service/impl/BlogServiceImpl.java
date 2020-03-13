@@ -2,14 +2,11 @@ package blog.service.impl;
 
 import blog.dto.*;
 import blog.entity.Blog;
-import blog.entity.Type;
 import blog.exception.NotFountException;
 import blog.mapper.BlogMapper;
-import blog.mapper.TypeMapper;
 import blog.service.BlogService;
 import blog.util.MarkdownUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,6 +99,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
                 blogMapper.setBlogTag(new BlogAndTag(blogId, Long.parseLong(tagId)));
             }
         }
+    }
+
+    @Override
+    public Long addBlog(Blog blog) {
+        blogMapper.insert(blog);
+        return blog.getId();
     }
 
     @Override
