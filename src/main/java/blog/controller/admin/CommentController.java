@@ -42,16 +42,6 @@ public class CommentController {
         return result;
     }
 
-//    @GetMapping("/comments")
-//    public String list(Model model, @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum) {
-//        PageHelper.startPage(pageNum, 10);
-//        List<Comment> comments = commentService.list();
-//        PageInfo<Comment> pageInfo = new PageInfo<>(comments);
-//        model.addAttribute("pageInfo", pageInfo);
-//        return "admin/comments";
-//    }
-
-
     @GetMapping("/comments/delete/{id}")
     public String deleteComments(@PathVariable Long id, RedirectAttributes attributes) {
         if (id != null) {
