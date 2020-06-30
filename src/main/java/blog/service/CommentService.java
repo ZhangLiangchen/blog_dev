@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 public interface CommentService extends IService<Comment> {
-    List<Comment> listCommentByBlogId(Long blogId);
+    //查询评论列表
+    List<Comment> listComment(Long blogId);
 
+    //保存评论
     int saveComment(Comment comment);
+
 }

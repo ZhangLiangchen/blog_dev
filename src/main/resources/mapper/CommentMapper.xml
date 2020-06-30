@@ -3,39 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog.mapper.CommentMapper">
-
+    <!--添加评论-->
     <insert id="saveComment" parameterType="blog.entity.Comment">
-        insert into blog.t_comment (nickname, email, content, create_time, blog_id, parent_comment_id,parent_nickname)
-        values (#{nickname}, #{email}, #{content}, #{createTime}, #{blogId}, #{parentCommentId}, #{parentNickname});
+        insert into blog.t_comment (nickname,email,content,avatar,create_time,blog_id,parent_comment_id)
+        values (#{nickname},#{email},#{content},#{avatar},#{createTime},#{blogId},#{parentCommentId});
     </insert>
 
-
-    <select id="findByBlogIdParentIdNull" resultType="blog.entity.Comment">
-        select c.id cid,
-               c.nickname,
-               c.email,
-               c.content,
-               c.create_time,
-               c.blog_id,
-               c.parent_comment_id,
-               c.parent_nickname
+    <!--查询父级评论-->
+    <select id="findByParentIdNull" resultType="blog.entity.Comment">
+        select *
         from blog.t_comment c
-        where c.blog_id = #{blogId}
-          and c.parent_comment_id = #{blogParentId}
+        where c.blog_id = #{blogId} and c.parent_comment_id = #{parentCommentId}
         order by c.create_time desc
     </select>
 
-    <select id="findByParentCommentId" resultType="blog.entity.Comment">
-        select c.id cid,
-               c.nickname,
-               c.email,
-               c.content,
-               c.create_time,
-               c.blog_id,
-               c.parent_comment_id,
-               c.parent_nickname
+    <!--查询一级回复-->
+    <select id="findParentIdNotNull" resultType="blog.entity.Comment">
+        select *
         from blog.t_comment c
         where c.parent_comment_id = #{parentCommentId}
+        order by c.create_time desc
     </select>
 
+    <!--查询二级以及所有子集回复-->
+    <select id="findByReplayId" resultType="blog.entity.Comment">
+        select *
+        from blog.t_comment c
+        where c.parent_comment_id = #{childId}
+        order by c.create_time desc
+    </select>
 </mapper>

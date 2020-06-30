@@ -75,7 +75,7 @@ public class IndexController {
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model) {
         DetailedBlog detailedBlog = blogService.getDetailedBlog(id);
-        List<Comment> comments = commentService.listCommentByBlogId(id);
+        List<Comment> comments = commentService.listComment(id);
         model.addAttribute("comments", comments);
         model.addAttribute("blog", detailedBlog);
         return "blog";

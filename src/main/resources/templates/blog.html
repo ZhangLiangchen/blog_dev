@@ -12,6 +12,8 @@
     <!--代码高亮-->
     <link href="../static/lib/prism/prism.css" rel="stylesheet">
     <link href="../static/css/me.css" rel="stylesheet">
+
+<!--    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css">-->
 </head>
 <body>
 
@@ -120,9 +122,13 @@
                     <div class="ui threaded comments" style="max-width: 100%;">
                         <h3 class="ui dividing header">评论</h3>
                         <div class="comment" th:each="comment : ${comments}">
+                            <a class="avatar">
+                                <img src="../static/image/avatar.png" th:src="@{${comment.avatar}}">
+                            </a>
                             <div class="content">
                                 <a class="author" >
                                     <span th:text="${comment.nickname}">Matt</span>
+<!--                                    <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">博主</div>-->
                                 </a>
                                 <div class="metadata">
                                     <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
@@ -136,13 +142,15 @@
                                        onclick="reply(this)">回复</a>
                                 </div>
                             </div>
-
                             <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
                                 <div class="comment" th:each="reply : ${comment.replyComments}">
+                                    <a class="avatar">
+                                        <img src="../static/image/avatar.png" th:src="@{${reply.avatar}}">
+                                    </a>
                                     <div class="content">
                                         <a class="author" >
                                             <span th:text="${reply.nickname}">小红</span>
-                                            &nbsp;
+<!--                                            <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">博主</div>-->
                                             &nbsp;<span th:text="|@ ${reply.parentNickname}|" class="m-teal">@ 小白</span>
                                         </a>
                                         <div class="metadata">
@@ -152,44 +160,100 @@
                                             How artistic!
                                         </div>
                                         <div class="actions">
-                                            <a class="reply" data-commentid="1" data-commentnickname="Matt"
+                                            <a class="reply" data-commentid="1" data-commentnickname="小红"
                                                th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}"
                                                onclick="reply(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                        <!--/*-->
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/image/avatar.png">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="../static/image/avatar.png">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/image/avatar.png">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--*/-->
+
                     </div>
                 </div>
             </div>
-
             <form id="blog-form" action="#" th:action="@{/comments}" method="post" class="ui form">
-                <input type="text" name="blog.Id" th:value="${blog.id}">
-                <input type="text" name="parentComment.Id" value="-1">
-                <div class="field">
-                    <textarea name="content" placeholder="请输入评论信息..."></textarea>
-                </div>
-                <div class="fields">
-                    <div class="field m-mobile-wide m-margin-bottom-small">
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="姓名">
+                <div id="comment-form" class="ui form">
+                    <input type="hidden" name="blogId" th:value="${blog.id}">
+                    <input type="hidden" name="parentComment.id" value="-1">
+                    <div class="field">
+                        <textarea name="content" placeholder="请输入评论信息..."></textarea>
+                    </div>
+                    <div class="fields">
+                        <div class="field m-mobile-wide m-margin-bottom-small">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="姓名">
+                            </div>
+                        </div>
+                        <div class="field m-mobile-wide m-margin-bottom-small">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
+                                <input type="text" name="email" placeholder="邮箱">
+                            </div>
+                        </div>
+                        <div class="field  m-margin-bottom-small m-mobile-wide">
+                            <button id="commentpost-btn" type="submit" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
                         </div>
                     </div>
-                    <div class="field m-mobile-wide m-margin-bottom-small">
-                        <div class="ui left icon input">
-                            <i class="mail icon"></i>
-                            <input type="text" name="email" placeholder="邮箱">
-                        </div>
-                    </div>
-                    <div class="field  m-margin-bottom-small m-mobile-wide">
-                        <button id="commentpost-btn" type="submit" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
-                    </div>
+
                 </div>
             </form>
-
         </div>
     </div>
 </div>
@@ -211,9 +275,12 @@
 
 <th:block th:replace="_fragments :: script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     <script src="../static/lib/prism/prism.js"></script>
     <script src="../static/lib/tocbot/tocbot.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+
 </th:block>
 
 <script>
@@ -249,7 +316,7 @@
                 identifier: 'nickname',
                 rules: [{
                     type: 'empty',
-                    prompt: '请输入你的大名'
+                    prompt: '请输入你的姓名'
                 }]
             },
             type: {
@@ -270,6 +337,7 @@
         var boo = $('.ui.form').form('validate form');
         if (boo) {
             console.log('校验成功');
+            postData();
         } else {
             console.log('校验失败');
         }
@@ -277,15 +345,16 @@
 
     function clearContent() {
         $("[name='content']").val('');
-        $("[name='parentComment.Id']").val(-1);
+        $("[name='parentComment.id']").val(-1);
         $("[name='content']").attr("placeholder", "请输入评论信息...");
     }
 
     function reply(obj) {
         var commentId = $(obj).data('commentid');
         var commentNickname = $(obj).data('commentnickname');
+        $("[name='parentComment.id']").val(commentId);
         $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
-        $("[name='parentCommen.tId']").val(commentId);
+        // $(window).scrollTo($('#comment-form'),500);
     }
 
 </script>

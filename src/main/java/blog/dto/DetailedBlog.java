@@ -1,5 +1,6 @@
 package blog.dto;
 
+import blog.entity.Comment;
 import blog.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,4 +29,6 @@ public class DetailedBlog {
     private String avatar;
 
     private List<Tag> tags = new ArrayList<>();
+
+    private List<Comment> comments = new ArrayList<>();
 }
