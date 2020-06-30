@@ -149,13 +149,13 @@
                 <i class="tags icon"></i>标签
               </div>
               <div class="right aligned column">
-                <a href="#" target="_blank" th:href="@{/tags/-1}">more <i class="angle double right icon"></i></a>
+                <a href="#" target="_blank" th:href="@{/tag/-1}">more <i class="angle double right icon"></i></a>
               </div>
             </div>
           </div>
           <div class="ui purple segment">
             <a class="ui purple basic left pointing label m-margin-tb-tiny" href="#" target="_blank"
-               th:each="tag : ${tags}" th:href="@{/tags/{id}(id=${tag.id})}">
+               th:each="tag : ${tags}" th:href="@{/tag/{id}(id=${tag.id})}">
               <span th:text="${tag.name}">方法论</span>
               <div class="detail" th:text="${tag.blogs.size()}">23</div>
             </a>
