@@ -28,6 +28,7 @@ public class Comment {
     private Date createTime;
     private Long blogId;
     private Long parentCommentId;
+    private boolean adminComment;
 
     //回复评论
     @TableField(exist = false)

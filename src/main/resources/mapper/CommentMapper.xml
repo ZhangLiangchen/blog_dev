@@ -5,8 +5,8 @@
 <mapper namespace="blog.mapper.CommentMapper">
     <!--添加评论-->
     <insert id="saveComment" parameterType="blog.entity.Comment">
-        insert into blog.t_comment (nickname,email,content,avatar,create_time,blog_id,parent_comment_id)
-        values (#{nickname},#{email},#{content},#{avatar},#{createTime},#{blogId},#{parentCommentId});
+        insert into blog.t_comment (nickname,admin_comment,email,content,avatar,create_time,blog_id,parent_comment_id)
+        values (#{nickname},#{adminComment},#{email},#{content},#{avatar},#{createTime},#{blogId},#{parentCommentId});
     </insert>
 
     <!--查询父级评论-->
