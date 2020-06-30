@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="ui bottom attached segment" th:if="${pageNum}>1">
+        <div class="ui bottom attached segment">
             <div class="ui middle aligned two column grid">
                 <div class="column">
                     <div class="item"><a class="ui mini purple basic button" th:href="@{/tag/{id}(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,id=${activeTagId})}">上一页</a></div>
