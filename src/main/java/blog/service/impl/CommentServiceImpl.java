@@ -33,7 +33,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             Long id = comment.getId();
             String parentNickname1 = comment.getNickname();
             List<Comment> childComments = commentMapper.findParentIdNotNull(id);
-            //查询出子评论
             combineChildren(childComments, parentNickname1);
             comment.setReplyComments(tempReplys);
             tempReplys = new ArrayList<>();
@@ -41,12 +40,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return comments;
     }
 
-    /**
-     * @param comments root根节点，blog不为空的对象集合
-     * @return
-     */
     private void combineChildren(List<Comment> childComments, String parentNickname1) {
-        //判断是否有一级子回复
         if(childComments.size() > 0){
             //循环找出子评论的id
             for(Comment childComment : childComments){

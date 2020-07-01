@@ -228,7 +228,6 @@
                 </div>
             </div>
             <form id="blog-form" action="#" th:action="@{/comments}" method="post" class="ui form">
-                <div id="comment-form" class="ui form">
                     <input type="hidden" name="blogId" th:value="${blog.id}">
                     <input type="hidden" name="parentComment.id" value="-1">
                     <div class="field">
@@ -238,22 +237,20 @@
                         <div class="field m-mobile-wide m-margin-bottom-small">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="nickname" placeholder="姓名">
+                                <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}">
                             </div>
                         </div>
                         <div class="field m-mobile-wide m-margin-bottom-small">
                             <div class="ui left icon input">
                                 <i class="mail icon"></i>
-                                <input type="text" name="email" placeholder="邮箱">
+                                <input type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">
                             </div>
                         </div>
                         <div class="field  m-margin-bottom-small m-mobile-wide">
                             <button id="commentpost-btn" type="submit" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
                         </div>
                     </div>
-
-                </div>
-            </form>
+             </form>
         </div>
     </div>
 </div>
@@ -301,7 +298,6 @@
         $(window).scrollTo(0,500);
     });
 
-    //评论表单验证
     $('.ui.form').form({
         fields: {
             title: {
@@ -329,32 +325,20 @@
         }
     });
 
-    $(function () {
-        $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
-    });
-
     $('#commentpost-btn').click(function () {
         var boo = $('.ui.form').form('validate form');
-        if (boo) {
+        if (boo = true) {
             console.log('校验成功');
-            postData();
         } else {
             console.log('校验失败');
         }
     });
-
-    function clearContent() {
-        $("[name='content']").val('');
-        $("[name='parentComment.id']").val(-1);
-        $("[name='content']").attr("placeholder", "请输入评论信息...");
-    }
 
     function reply(obj) {
         var commentId = $(obj).data('commentid');
         var commentNickname = $(obj).data('commentnickname');
         $("[name='parentComment.id']").val(commentId);
         $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
-        // $(window).scrollTo($('#comment-form'),500);
     }
 
 </script>
